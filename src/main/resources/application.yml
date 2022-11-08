@@ -1,20 +1,42 @@
+#spring:
+#  profiles:
+#
+#  datasource:
+#    url: jdbc:h2:mem:testdb
+#    driverClassName: org.h2.Driver
+#    username: sa
+#    password:
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: create-drop
+#  h2:
+#    console:
+#      enabled: true
+#  devtools:
+#    livereload:
+#      enabled: true
+#    restart:
+#      enabled: true
 spring:
-  profiles:
-
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
   jpa:
-    show-sql: true
     hibernate:
-      ddl-auto: create-drop
-  h2:
-    console:
-      enabled: true
-  devtools:
-    livereload:
-      enabled: true
-    restart:
-      enabled: true
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:33306/STOCK
+    username: root
+    password: 123456
+    hikari:
+      maximun-pool-size: 40
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

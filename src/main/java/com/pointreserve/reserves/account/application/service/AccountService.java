@@ -10,8 +10,11 @@ import com.pointreserve.reserves.account.ui.dto.AccountEdit;
 import com.pointreserve.reserves.account.ui.dto.AccountResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.LockModeType;
 
 @Slf4j
 @Service
@@ -46,11 +49,11 @@ public class AccountService {
         AccountEditor accountEditor = amountEditorBuilder.totalAmount(accountEdit.getTotalAmount()).build();
 
         account.edit(accountEditor);
-        Account saveResult = accountRepository.save(account);
+        Account saveResult = accountRepository.saveAndFlush(account);
 
         return new AccountResponse(saveResult);
     }
-    @Transactional(readOnly = true)
+    @Transactional
     public AccountResponse getAccount( Long memberId ){
         Account account = accountRepository.getByMemberId(memberId)
                 .orElseThrow(() -> new AccountNotFound());

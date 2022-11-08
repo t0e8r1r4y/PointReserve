@@ -138,7 +138,7 @@ class EventReservesServiceTest {
         for(int i = 0; i < 100; i++) {
             givenList.add(EventReserves.builder().memberId(1L).amount(i+1).status(SAVEUP).build());
         }
-        List<EventReserves> saveResult = eventReservesRepository.saveAll(givenList);
+        List<EventReserves> saveResult = eventReservesRepository.saveAllAndFlush(givenList);
 
         // when
         List<EventReservesResponse> responseList = eventReservesService.getEventReservesList(EventReservesSearch.builder()
@@ -147,9 +147,12 @@ class EventReservesServiceTest {
                         .size(10)
                 .build());
 
+        System.out.println(responseList.size());
+
         // then
         Assertions.assertEquals(responseList.size(), 10);
         for(int i = 0; i < responseList.size(); i++) {
+            System.out.println(responseList.get(i).getMemberId() + " " + responseList.get(i).getAmount() + " " + responseList.get(i).getStatus());
             Assertions.assertEquals(responseList.get(i).getMemberId(), 1L);
             Assertions.assertEquals(responseList.get(i).getAmount(), saveResult.get(i).getAmount());
             Assertions.assertEquals(responseList.get(i).getStatus(), saveResult.get(i).getStatus());
