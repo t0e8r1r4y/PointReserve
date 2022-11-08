@@ -19,6 +19,7 @@ public class EventReservesRepositoryImpl implements EventReservesRepositoryCusto
                 .where(QEventReserves.eventReserves.memberId.eq(eventReservesSearch.getMemberId()))
                 .limit(eventReservesSearch.getSize())
                 .offset(eventReservesSearch.getOffset())
+                .orderBy(QEventReserves.eventReserves.effectiveData.asc())
                 .fetch();
     }
 }

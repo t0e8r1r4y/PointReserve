@@ -4,6 +4,7 @@ import com.pointreserve.reserves.account.domain.Account;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import javax.persistence.LockModeType;
 import java.util.Optional;
 
 import static com.pointreserve.reserves.account.domain.QAccount.account;
@@ -18,6 +19,7 @@ public class AccountRespositoryImpl implements AccountRepositoryCustom {
     public Optional<Account> getByMemberId(Long memberId) {
         return Optional.of(jpaQueryFactory.selectFrom(account)
                 .where(account.memberId.eq(memberId))
+                .setLockMode(LockModeType.PESSIMISTIC_WRITE)
                 .fetchOne());
     }
 }

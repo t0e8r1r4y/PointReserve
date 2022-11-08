@@ -14,6 +14,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @SpringBootTest
 class AccountServiceTest {
 
@@ -74,7 +80,35 @@ class AccountServiceTest {
         AccountResponse response =  accountService.updateAccount(1L, AccountEdit.builder().totalAmount(20000).build());
         // then
         Assertions.assertEquals(20000, response.getTotalAmount());
+    }
 
+    @Test
+    @DisplayName("적립금 계정 업데이트 동시성 테스트")
+    void updateAccountConcurrency() throws InterruptedException {
+        // given
+        accountRepository.saveAndFlush(Account.builder().memberId(1L).totalAmount(1000).build());
+        int threadCount = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch latch = new CountDownLatch(threadCount);
+
+        // when
+        for (int i = 0; i < threadCount; i++) {
+            int finalI = i;
+            executorService.submit(() -> {
+               try {
+                   accountService.updateAccount(1L, AccountEdit.builder().totalAmount(1000 + (100*(finalI +1))).build());
+               } finally {
+                   latch.countDown();
+               }
+            });
+        }
+
+        latch.await();
+
+        // then
+        Optional<Account> response = accountRepository.getByMemberId(1L);
+        System.out.println(response.get().getTotalAmount());
+        Assertions.assertEquals(11000, response.get().getTotalAmount());
     }
 
     @Test
