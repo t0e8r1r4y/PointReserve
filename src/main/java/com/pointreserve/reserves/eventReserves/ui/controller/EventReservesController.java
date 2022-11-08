@@ -35,14 +35,12 @@ public class EventReservesController {
     public EventReservesResponse createEvent(@RequestBody EventReservesCreate params) {
         params.isAmountValid();
         params.isStatusValid();
-//        return eventReservesService.createEventReserves(params);
         return eventReservesFacade.createEventReserves(params);
     }
 
     @PostMapping("/reserves/event/cancel")
     public EventReservesResponse createCacelEvent(@RequestBody EventReservesCancel params) {
         params.isStatusValid();
-//        return eventReservesService.createCancelEventReserves(params);
         return eventReservesFacade.createCancelEventReserves(params);
     }
 

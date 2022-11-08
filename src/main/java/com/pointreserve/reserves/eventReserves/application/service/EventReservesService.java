@@ -37,7 +37,7 @@ public class EventReservesService {
         return eventReservesRepository.save(e);
     }
 
-
+    // 테스트 외 사용안함
     @Transactional
     public EventReservesResponse createEventReserves(EventReservesCreate eventReservesCreate) {
 
@@ -66,6 +66,7 @@ public class EventReservesService {
                 .build();
     }
 
+    // 테스트 외 사용안함
     @Transactional
     public EventReservesResponse createCancelEventReserves(EventReservesCancel eventReservesCancel){
         String beforeEventId = eventReservesCancel.getEventId();
@@ -89,7 +90,6 @@ public class EventReservesService {
         EventReserves saveResult = eventReservesRepository.save(eventReserves);
         // 이벤트 발행
         EventDetailCreate eventDetailCreate = new EventDetailCreate(saveResult);
-//        eventDetailCreate.setEventId(eventReservesCancel.getEventId());
         eventDetailCreate.setBeforeHistoryId(beforeEventId);
         eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.STANDBY);
         publisher.publish(eventDetailCreate);

@@ -8,14 +8,12 @@ import com.pointreserve.reserves.eventDetail.ui.dto.EventDetailCreate;
 import com.pointreserve.reserves.eventReserves.application.service.EventReservesService;
 import com.pointreserve.reserves.eventReserves.domain.EventReserves;
 import com.pointreserve.reserves.eventReserves.domain.ReservesStatus;
-import com.pointreserve.reserves.eventReserves.exception.EventReservesNotFound;
 import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesCancel;
 import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesCreate;
 import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import static java.lang.Math.abs;
 
