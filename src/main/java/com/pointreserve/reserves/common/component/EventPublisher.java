@@ -13,5 +13,7 @@ public class EventPublisher {
     public void publish(EventDetailCreate eventDetailCreate)
     {
         publisher.publishEvent(eventDetailCreate);
+
+        return;
     }
 }
