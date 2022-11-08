@@ -1,50 +1,41 @@
-package com.pointreserve.reserves.eventReserves.application.service;
+package com.pointreserve.reserves.eventReserves.application.facade;
 
 import com.pointreserve.reserves.account.application.service.AccountService;
 import com.pointreserve.reserves.account.ui.dto.AccountEdit;
 import com.pointreserve.reserves.account.ui.dto.AccountResponse;
 import com.pointreserve.reserves.common.component.EventPublisher;
 import com.pointreserve.reserves.eventDetail.ui.dto.EventDetailCreate;
+import com.pointreserve.reserves.eventReserves.application.service.EventReservesService;
 import com.pointreserve.reserves.eventReserves.domain.EventReserves;
-import com.pointreserve.reserves.eventReserves.infra.EventReservesRepository;
 import com.pointreserve.reserves.eventReserves.domain.ReservesStatus;
 import com.pointreserve.reserves.eventReserves.exception.EventReservesNotFound;
 import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesCancel;
 import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesCreate;
 import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesResponse;
-import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesSearch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class EventReservesService {
+public class EventReservesFacade {
+
     private final EventPublisher publisher;
-    private final EventReservesRepository eventReservesRepository;
+
+    private final EventReservesService eventReservesService;
 
     private final AccountService accountService;
 
-    @Transactional
-    public EventReserves saveEventReserves(EventReserves e) {
-        return eventReservesRepository.save(e);
-    }
-
-
-    @Transactional
     public EventReservesResponse createEventReserves(EventReservesCreate eventReservesCreate) {
 
         EventReserves eventReserves = eventReservesCreate.toEntity();
 
-        // 업데이트 대상 조회
         AccountResponse accountResponse = accountService.getAccount(eventReserves.getMemberId());
+
         // 금액 계산
         AccountEdit accountEdit = AccountEdit.builder()
                 .totalAmount(calUpdateAmount( eventReserves, accountResponse.getTotalAmount() ))
@@ -53,8 +44,8 @@ public class EventReservesService {
         accountEdit.isValid();
         // 업데이트 요청
         accountService.updateAccount(eventReserves.getMemberId(), accountEdit);
-        // 저장
-        EventReserves saveResult = eventReservesRepository.save(eventReserves);
+        // 이벤트 저장
+        EventReserves saveResult = eventReservesService.saveEventReserves(eventReserves);
         // 이벤트 발행
         EventDetailCreate eventDetailCreate = new EventDetailCreate(saveResult);
         eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.STANDBY);
@@ -66,15 +57,11 @@ public class EventReservesService {
                 .build();
     }
 
-    @Transactional
     public EventReservesResponse createCancelEventReserves(EventReservesCancel eventReservesCancel){
         String beforeEventId = eventReservesCancel.getEventId();
         EventReserves eventReserves = eventReservesCancel.toEntity();
-
-        EventReserves beforeHistory = eventReservesRepository.findById(beforeEventId)
-                .orElseThrow(()->{throw new EventReservesNotFound();});
-
-
+        // 이전 정보 조회
+        EventReservesResponse beforeHistory = eventReservesService.getEventReserves(beforeEventId);
         // 업데이트 대상 조회
         AccountResponse accountResponse = accountService.getAccount(eventReserves.getMemberId());
         // 금액 계산
@@ -86,10 +73,9 @@ public class EventReservesService {
         // 업데이트 요청
         accountService.updateAccount(eventReserves.getMemberId(), accountEdit);
         // 저장
-        EventReserves saveResult = eventReservesRepository.save(eventReserves);
+        EventReserves saveResult = eventReservesService.saveEventReserves(eventReserves);
         // 이벤트 발행
         EventDetailCreate eventDetailCreate = new EventDetailCreate(saveResult);
-//        eventDetailCreate.setEventId(eventReservesCancel.getEventId());
         eventDetailCreate.setBeforeHistoryId(beforeEventId);
         eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.STANDBY);
         publisher.publish(eventDetailCreate);
@@ -99,26 +85,8 @@ public class EventReservesService {
                 .build();
     }
 
-    @Transactional(readOnly = true)
-    public EventReservesResponse getEventReserves(String eventId){
-        EventReserves eventReserves = eventReservesRepository.findById(eventId).orElseThrow(
-                () -> new EventReservesNotFound()
-        );
-        return EventReservesResponse.builder().eventReserves(eventReserves).build();
-    }
-
-    public List<EventReservesResponse> getEventReservesList(EventReservesSearch eventReservesSearch){
-        List<EventReservesResponse> responseList = eventReservesRepository.getList(eventReservesSearch)
-                .stream().map(EventReservesResponse::new)
-                .collect(Collectors.toList());
-        if(responseList.isEmpty()){
-            throw new EventReservesNotFound();
-        }
-        return responseList;
-    }
-
-
-    private int calUpdateAmount( EventReserves e, int beforeTotalAmount ) {
+    private int calUpdateAmount(EventReserves e, int beforeTotalAmount) {
         return ( (e.getStatus() == ReservesStatus.SAVEUP) ? e.getAmount() : e.getAmount()*(-1) ) + beforeTotalAmount;
     }
+
 }

@@ -215,7 +215,7 @@ public class EventDetailService {
         for( EventDetail e : eventDetailList ) {
             EventDetail newEventDetail = eventDetailRepository.save( EventDetail.builder()
                     .membershipId(nowEvent.getMembershipId()) // 새로운 이벤트
-                    .status(ReservesStatus.CANCLE_REDEEM)                           // 사용 취소는 다시 적립
+                    .status(ReservesStatus.CANCLE_REDEEM)     // 사용 취소는 다시 적립
                     .amount(e.getAmount() * (-1))             // 이전 사용 금액을 다시 원복
                     .eventId(nowEvent.getEventId())           // 이벤트 ID는 이번에 발생한 이벤트
                     .cancelId(e.getId())                      // 취소 ID는 이전 ID
