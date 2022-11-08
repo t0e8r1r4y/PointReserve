@@ -21,7 +21,8 @@ public class EventDetail {
     @GeneratedValue(generator = "event-generator")
     @GenericGenerator(name = "event-generator",
             parameters = @Parameter(name = "prefix", value = "d"),
-            strategy = "com.pointreserve.reserves.common.domain.CustomIdGenerator")
+            strategy = "com.pointreserve.reserves.common.domain.CustomIdGenerator"
+    )
     String id;
 
     @Column()
