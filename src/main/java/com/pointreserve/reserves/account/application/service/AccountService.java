@@ -8,6 +8,8 @@ import com.pointreserve.reserves.account.exception.AccountNotFound;
 import com.pointreserve.reserves.account.ui.dto.AccountCreate;
 import com.pointreserve.reserves.account.ui.dto.AccountEdit;
 import com.pointreserve.reserves.account.ui.dto.AccountResponse;
+import com.pointreserve.reserves.common.bucket.TrafficPlan;
+import io.github.bucket4j.Bucket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.Lock;
@@ -15,12 +17,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountService {
     private final AccountRepository accountRepository;
+
+    private final Map<String, Bucket> cache = new ConcurrentHashMap<>();
+
+    public Bucket resolveBucket(String apiKey) {
+        return cache.computeIfAbsent(apiKey, this::newBucket);
+    }
+
+    private Bucket newBucket(String apiKey) {
+        TrafficPlan trafficPlan = TrafficPlan.resolvePlanFromApiKey(apiKey);
+        return Bucket.builder()
+                .addLimit(trafficPlan.getLimit())
+                .build();
+    }
+
     @Transactional
     public AccountResponse createAccount( AccountCreate accountCreate ) {
         if( accountRepository.getByMemberId(accountCreate.getMemberId()).isPresent() ){
