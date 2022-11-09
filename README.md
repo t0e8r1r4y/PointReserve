@@ -1,9 +1,9 @@
 # 포인트 적립 시스템 API 개발 내용입니다.
 
-## 설계내용
-- [링크]()
+## 사용 기술 스택
+- java11, QueryDsl, Junit5, SpringBoot, Spring RestDoc, h2
 
-## 사용방법
+## 설계내용
 - [링크]()
 
 <br/>
