@@ -6,7 +6,7 @@
 
 
 ## 사용 기술 스택
-- java11, QueryDsl, Junit5, SpringBoot, Spring RestDoc, h2
+- java11, QueryDsl, Junit5, SpringBoot, Spring RestDoc, h2, mysql
 
 ## 설계내용
 - [링크]()
