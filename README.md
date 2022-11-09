@@ -1,5 +1,10 @@
 # 포인트 적립 시스템 API 개발 내용입니다.
 
+> 아래 기능을 제공하면서 계속 리팩토링 중입니다.
+
+<br/>
+
+
 ## 사용 기술 스택
 - java11, QueryDsl, Junit5, SpringBoot, Spring RestDoc, h2
 
