@@ -9,7 +9,7 @@
 - java11, QueryDsl, Junit5, SpringBoot, Spring RestDoc, h2, mysql
 
 ## 설계내용
-- [링크]()
+- [링크](https://github.com/t0e8r1r4y/PointReserve/wiki)
 
 <br/>
 <!DOCTYPE html>
