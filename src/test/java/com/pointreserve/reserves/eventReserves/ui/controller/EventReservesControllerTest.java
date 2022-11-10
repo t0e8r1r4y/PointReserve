@@ -70,10 +70,10 @@ class EventReservesControllerTest {
                 .memberId(1L)
                 .reservesStatus(REDEEM).build();
 
-        Mockito.when( accumulatedPointService.getAccount( eventReservesCreate.getMemberId() ) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccount(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 110);
         });
 
@@ -115,10 +115,10 @@ class EventReservesControllerTest {
                 .memberId(1L)
                 .reservesStatus(REDEEM).build();
 
-        Mockito.when( accumulatedPointService.getAccount( eventReservesCreate.getMemberId() ) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccount(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 110);
         });
 
@@ -156,10 +156,10 @@ class EventReservesControllerTest {
                 .memberId(1L)
                 .reservesStatus(REDEEM).build();
 
-        Mockito.when( accumulatedPointService.getAccount( eventReservesCreate.getMemberId() ) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccount(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 110);
         });
 
@@ -327,10 +327,10 @@ class EventReservesControllerTest {
                 .reservesStatus(CANCLE_REDEEM)
                 .build();
 
-        Mockito.when( accumulatedPointService.getAccount( eventReservesCancel.getMemberId() ) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCancel.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccount(eventReservesCancel.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCancel.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 110);
         });
 

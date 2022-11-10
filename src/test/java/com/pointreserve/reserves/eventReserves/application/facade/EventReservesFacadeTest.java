@@ -36,10 +36,10 @@ class EventReservesFacadeTest {
         // given
         EventReservesCreate given = EventReservesCreate.builder().memberId(1L).amount(10).reservesStatus(SAVEUP).build();
 
-        Mockito.when( accumulatedPointService.getAccount( given.getMemberId() ) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.getAccumulatedPoint( given.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccount(given.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+        Mockito.when( accumulatedPointService.updateAccumulatedPoint(given.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 110);
         });
 

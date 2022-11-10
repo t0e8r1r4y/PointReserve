@@ -44,7 +44,7 @@ public class EventReservesService {
         EventReserves eventReserves = eventReservesCreate.toEntity();
 
         // 업데이트 대상 조회
-        AccumulatedPointResponse accumulatedPointResponse = accumulatedPointService.getAccount(eventReserves.getMemberId());
+        AccumulatedPointResponse accumulatedPointResponse = accumulatedPointService.getAccumulatedPoint(eventReserves.getMemberId());
         // 금액 계산
         AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
                 .totalAmount(calUpdateAmount( eventReserves, accumulatedPointResponse.getTotalAmount() ))
@@ -52,7 +52,7 @@ public class EventReservesService {
         // 금액 유효성 검사
         accumulatedPointEdit.isValid();
         // 업데이트 요청
-        accumulatedPointService.updateAccount(eventReserves.getMemberId(), accumulatedPointEdit);
+        accumulatedPointService.updateAccumulatedPoint(eventReserves.getMemberId(), accumulatedPointEdit);
         // 저장
         EventReserves saveResult = eventReservesRepository.save(eventReserves);
         // 이벤트 발행
@@ -77,7 +77,7 @@ public class EventReservesService {
 
 
         // 업데이트 대상 조회
-        AccumulatedPointResponse accumulatedPointResponse = accumulatedPointService.getAccount(eventReserves.getMemberId());
+        AccumulatedPointResponse accumulatedPointResponse = accumulatedPointService.getAccumulatedPoint(eventReserves.getMemberId());
         // 금액 계산
         AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
                 .totalAmount( accumulatedPointResponse.getTotalAmount() + abs(beforeHistory.getAmount()) )
@@ -85,7 +85,7 @@ public class EventReservesService {
         // 금액 유효성 검사
         accumulatedPointEdit.isValid();
         // 업데이트 요청
-        accumulatedPointService.updateAccount(eventReserves.getMemberId(), accumulatedPointEdit);
+        accumulatedPointService.updateAccumulatedPoint(eventReserves.getMemberId(), accumulatedPointEdit);
         // 저장
         EventReserves saveResult = eventReservesRepository.save(eventReserves);
         // 이벤트 발행

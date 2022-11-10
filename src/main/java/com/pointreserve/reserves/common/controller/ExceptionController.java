@@ -1,8 +1,8 @@
 package com.pointreserve.reserves.common.controller;
 
-import com.pointreserve.reserves.accumulationpoint.exception.AccountConfilctException;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountInvalidRequestException;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFoundException;
+import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointConfilctException;
+import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointInvalidRequestException;
+import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointErrorResponse;
 import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFound;
 import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequest;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ExceptionController {
 
     @ResponseBody
-    @ExceptionHandler(AccountNotFoundException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountNotFoundException e){
+    @ExceptionHandler(AccumulatedPointNotFoundException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccumulatedPointNotFoundException e){
 
         int statusCode = e.statusCode();
 
@@ -84,8 +84,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(AccountInvalidRequestException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountInvalidRequestException e){
+    @ExceptionHandler(AccumulatedPointInvalidRequestException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccumulatedPointInvalidRequestException e){
 
         int statusCode = e.statusCode();
 
@@ -101,8 +101,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(AccountConfilctException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountConfilctException e){
+    @ExceptionHandler(AccumulatedPointConfilctException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccumulatedPointConfilctException e){
 
         int statusCode = e.statusCode();
 

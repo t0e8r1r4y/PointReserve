@@ -2,7 +2,7 @@ package com.pointreserve.reserves.accumulationpoint.application.service;
 
 import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPoint;
 import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRepository;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFoundException;
+import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
@@ -34,7 +34,7 @@ class AccumulatedPointServiceTest {
     void createReservesAccount() {
         Long memberId = 1L;
 
-        accumulatedPointService.createAccount(AccumulatedPointCreate.builder()
+        accumulatedPointService.createAccumulatedPoint(AccumulatedPointCreate.builder()
                 .memberId(memberId)
                 .build());
 
@@ -51,7 +51,7 @@ class AccumulatedPointServiceTest {
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
 
         //when
-        accumulatedPointService.deleteAccount(1L);
+        accumulatedPointService.deleteAccumulatedPoint(1L);
 
         //then
         Assertions.assertEquals(0, accumulatedPointPointRepository.count());
@@ -61,8 +61,8 @@ class AccumulatedPointServiceTest {
     @DisplayName("적립금 계정 삭제 실패 서비스 테스트")
     void deleteAccountFailTest() {
         //then
-        Assertions.assertThrows( AccountNotFoundException.class, () -> {
-            accumulatedPointService.deleteAccount(1L);
+        Assertions.assertThrows( AccumulatedPointNotFoundException.class, () -> {
+            accumulatedPointService.deleteAccumulatedPoint(1L);
         });
     }
 
@@ -72,7 +72,7 @@ class AccumulatedPointServiceTest {
         // given
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
         // when
-        AccumulatedPointResponse response =  accumulatedPointService.updateAccount(1L, AccumulatedPointEdit.builder().totalAmount(20000).build());
+        AccumulatedPointResponse response =  accumulatedPointService.updateAccumulatedPoint(1L, AccumulatedPointEdit.builder().totalAmount(20000).build());
         // then
         Assertions.assertEquals(20000, response.getTotalAmount());
     }
@@ -115,8 +115,8 @@ class AccumulatedPointServiceTest {
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
 
         //then
-        Assertions.assertThrows( AccountNotFoundException.class, () -> {
-            accumulatedPointService.updateAccount(2L, AccumulatedPointEdit.builder().totalAmount(20000).build());
+        Assertions.assertThrows( AccumulatedPointNotFoundException.class, () -> {
+            accumulatedPointService.updateAccumulatedPoint(2L, AccumulatedPointEdit.builder().totalAmount(20000).build());
         });
     }
 
@@ -127,7 +127,7 @@ class AccumulatedPointServiceTest {
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
 
         // when
-        AccumulatedPointResponse response = accumulatedPointService.getAccount(1L);
+        AccumulatedPointResponse response = accumulatedPointService.getAccumulatedPoint(1L);
 
         // then
         Assertions.assertEquals(response.getMemberId(), 1L);
@@ -143,8 +143,8 @@ class AccumulatedPointServiceTest {
         // when
 
         // then
-        Assertions.assertThrows( AccountNotFoundException.class, () -> {
-            accumulatedPointService.getAccount(2L);
+        Assertions.assertThrows( AccumulatedPointNotFoundException.class, () -> {
+            accumulatedPointService.getAccumulatedPoint(2L);
         });
     }
 }
