@@ -2,7 +2,7 @@ package com.pointreserve.reserves.accumulationpoint.application.service;
 
 import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPoint;
 import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRepository;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFound;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
@@ -13,11 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @SpringBootTest
 @ActiveProfiles("local")
@@ -66,7 +61,7 @@ class AccumulatedPointServiceTest {
     @DisplayName("적립금 계정 삭제 실패 서비스 테스트")
     void deleteAccountFailTest() {
         //then
-        Assertions.assertThrows( AccountNotFound.class, () -> {
+        Assertions.assertThrows( AccountNotFoundException.class, () -> {
             accumulatedPointService.deleteAccount(1L);
         });
     }
@@ -120,7 +115,7 @@ class AccumulatedPointServiceTest {
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
 
         //then
-        Assertions.assertThrows( AccountNotFound.class, () -> {
+        Assertions.assertThrows( AccountNotFoundException.class, () -> {
             accumulatedPointService.updateAccount(2L, AccumulatedPointEdit.builder().totalAmount(20000).build());
         });
     }
@@ -148,7 +143,7 @@ class AccumulatedPointServiceTest {
         // when
 
         // then
-        Assertions.assertThrows( AccountNotFound.class, () -> {
+        Assertions.assertThrows( AccountNotFoundException.class, () -> {
             accumulatedPointService.getAccount(2L);
         });
     }
