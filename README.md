@@ -225,13 +225,37 @@
 </div>
 <div class="sect3">
 <h4 id="_응답_2">응답</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>응답 없음</p>
-</li>
-</ul>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">삭제된 포인트 계좌(Account) ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">삭제된 회원번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>totalAmount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">삭제된 포인트 총계(최초 가입시 0원)</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_예외_2">예외</h4>
@@ -466,7 +490,7 @@
 <h4 id="_응답_4">응답</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>{"id":"e-1","memberId":1,"amount":10,"status":"REDEEM","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"}</code></pre>
+<pre class="highlight nowrap"><code>{"id":"e-1","memberId":1,"amount":10,"status":"REDEEM","effectiveData":"2022-11-11 00:47:35","expiryDate":"2023-11-11 00:47:35"}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -653,7 +677,7 @@
 <h4 id="_응답_5">응답</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>{"id":"e-3","memberId":1,"amount":0,"status":"CANCLE_REDEEM","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"}</code></pre>
+<pre class="highlight nowrap"><code>{"id":"e-3","memberId":1,"amount":0,"status":"CANCLE_REDEEM","effectiveData":"2022-11-11 00:47:35","expiryDate":"2023-11-11 00:47:35"}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -789,7 +813,7 @@
 <h4 id="_응답_6">응답</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>{"id":"e-1","memberId":1,"amount":10,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"}</code></pre>
+<pre class="highlight nowrap"><code>{"id":"e-1","memberId":1,"amount":10,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:35","expiryDate":"2023-11-11 00:47:35"}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -925,7 +949,7 @@
 <h4 id="_응답_7">응답</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>[{"id":"e-11","memberId":1,"amount":11,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-12","memberId":1,"amount":12,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-13","memberId":1,"amount":13,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-14","memberId":1,"amount":14,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-15","memberId":1,"amount":15,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-16","memberId":1,"amount":16,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-17","memberId":1,"amount":17,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-18","memberId":1,"amount":18,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-19","memberId":1,"amount":19,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"},{"id":"e-20","memberId":1,"amount":20,"status":"SAVEUP","effectiveData":"2022-11-08 08:04:17","expiryDate":"2023-11-08 08:04:17"}]</code></pre>
+<pre class="highlight nowrap"><code>[{"id":"e-11","memberId":1,"amount":11,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-12","memberId":1,"amount":12,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-13","memberId":1,"amount":13,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-14","memberId":1,"amount":14,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-15","memberId":1,"amount":15,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-16","memberId":1,"amount":16,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-17","memberId":1,"amount":17,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-18","memberId":1,"amount":18,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-19","memberId":1,"amount":19,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"},{"id":"e-20","memberId":1,"amount":20,"status":"SAVEUP","effectiveData":"2022-11-11 00:47:36","expiryDate":"2023-11-11 00:47:36"}]</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1056,7 +1080,7 @@
 <h4 id="_응답_8">응답</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>[{"id":"d-1","membershipId":1,"status":"SAVEUP","amount":1,"eventId":"e-1","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.190983","expiryDate":"2023-11-08T08:04:14.190983"},{"id":"d-2","membershipId":1,"status":"SAVEUP","amount":2,"eventId":"e-2","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.200661","expiryDate":"2023-11-08T08:04:14.200661"},{"id":"d-3","membershipId":1,"status":"SAVEUP","amount":3,"eventId":"e-3","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.203741","expiryDate":"2023-11-08T08:04:14.203741"},{"id":"d-4","membershipId":1,"status":"SAVEUP","amount":4,"eventId":"e-4","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.206996","expiryDate":"2023-11-08T08:04:14.206996"},{"id":"d-5","membershipId":1,"status":"SAVEUP","amount":5,"eventId":"e-5","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.212078","expiryDate":"2023-11-08T08:04:14.212078"},{"id":"d-6","membershipId":1,"status":"SAVEUP","amount":6,"eventId":"e-6","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.216909","expiryDate":"2023-11-08T08:04:14.216909"},{"id":"d-7","membershipId":1,"status":"SAVEUP","amount":7,"eventId":"e-7","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.220459","expiryDate":"2023-11-08T08:04:14.220459"},{"id":"d-8","membershipId":1,"status":"SAVEUP","amount":8,"eventId":"e-8","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.224042","expiryDate":"2023-11-08T08:04:14.224042"},{"id":"d-9","membershipId":1,"status":"SAVEUP","amount":9,"eventId":"e-9","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.228803","expiryDate":"2023-11-08T08:04:14.228803"},{"id":"d-10","membershipId":1,"status":"SAVEUP","amount":10,"eventId":"e-10","signUpId":null,"cancelId":null,"effectiveData":"2022-11-08T08:04:14.234471","expiryDate":"2023-11-08T08:04:14.234471"}]</code></pre>
+<pre class="highlight nowrap"><code>[{"id":"d-1","membershipId":1,"status":"SAVEUP","amount":1,"eventId":"e-1","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.902931","expiryDate":"2023-11-11T00:47:31.902931"},{"id":"d-2","membershipId":1,"status":"SAVEUP","amount":2,"eventId":"e-2","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.916121","expiryDate":"2023-11-11T00:47:31.916121"},{"id":"d-3","membershipId":1,"status":"SAVEUP","amount":3,"eventId":"e-3","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.92006","expiryDate":"2023-11-11T00:47:31.92006"},{"id":"d-4","membershipId":1,"status":"SAVEUP","amount":4,"eventId":"e-4","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.925113","expiryDate":"2023-11-11T00:47:31.925113"},{"id":"d-5","membershipId":1,"status":"SAVEUP","amount":5,"eventId":"e-5","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.931382","expiryDate":"2023-11-11T00:47:31.931382"},{"id":"d-6","membershipId":1,"status":"SAVEUP","amount":6,"eventId":"e-6","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.936933","expiryDate":"2023-11-11T00:47:31.936933"},{"id":"d-7","membershipId":1,"status":"SAVEUP","amount":7,"eventId":"e-7","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.942712","expiryDate":"2023-11-11T00:47:31.942712"},{"id":"d-8","membershipId":1,"status":"SAVEUP","amount":8,"eventId":"e-8","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.94706","expiryDate":"2023-11-11T00:47:31.94706"},{"id":"d-9","membershipId":1,"status":"SAVEUP","amount":9,"eventId":"e-9","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.952361","expiryDate":"2023-11-11T00:47:31.952361"},{"id":"d-10","membershipId":1,"status":"SAVEUP","amount":10,"eventId":"e-10","signUpId":null,"cancelId":null,"effectiveData":"2022-11-11T00:47:31.956408","expiryDate":"2023-11-11T00:47:31.956408"}]</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1167,7 +1191,7 @@
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-11-08 07:57:34 +0900
+Last updated 2022-11-11 00:43:06 +0900
 </div>
 </div>
 </body>
