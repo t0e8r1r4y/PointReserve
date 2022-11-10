@@ -4,7 +4,7 @@ import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointCon
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointInvalidRequestException;
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointErrorResponse;
-import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFound;
+import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFoundException;
 import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequestException;
 import com.pointreserve.reserves.eventReserves.exception.EventReservesNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -67,8 +67,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(EventDetailNotFound.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventDetailNotFound e){
+    @ExceptionHandler(EventDetailNotFoundException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventDetailNotFoundException e){
 
         int statusCode = e.statusCode();
 

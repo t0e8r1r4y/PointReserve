@@ -1,7 +1,7 @@
 package com.pointreserve.reserves.eventDetail.application.service;
 
 import com.pointreserve.reserves.eventDetail.domain.EventDetail;
-import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFound;
+import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFoundException;
 import com.pointreserve.reserves.eventDetail.infra.EventDetailRepository;
 import com.pointreserve.reserves.eventDetail.ui.dto.EventDetailCreate;
 import com.pointreserve.reserves.eventDetail.ui.dto.EventDetailResponse;
@@ -30,7 +30,7 @@ public class EventDetailService {
                 .collect(Collectors.toList());
 
         if (responseList.isEmpty()) {
-            throw new EventDetailNotFound();
+            throw new EventDetailNotFoundException();
         }
 
         return responseList;
