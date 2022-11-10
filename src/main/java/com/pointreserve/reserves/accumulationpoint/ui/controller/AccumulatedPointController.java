@@ -38,8 +38,8 @@ public class AccumulatedPointController {
     }
 
     @DeleteMapping("/reserves/delete/{memberId}")
-    public void deleteAccount(@PathVariable Long memberId) {
-        accumulatedPointService.deleteAccount(memberId);
+    public ResponseEntity<AccumulatedPointResponse> deleteAccount(@PathVariable Long memberId) {
+        return ResponseEntity.status(HttpStatus.OK).body(accumulatedPointService.deleteAccount(memberId));
     }
 
     @GetMapping("/reserves/get/{memberId}")
