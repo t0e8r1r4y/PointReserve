@@ -4,9 +4,9 @@ import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointCon
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointInvalidRequestException;
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointErrorResponse;
-import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFoundException;
-import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequestException;
-import com.pointreserve.reserves.eventReserves.exception.EventReservesNotFoundException;
+import com.pointreserve.reserves.eventdetail.exception.EventDetailNotFoundException;
+import com.pointreserve.reserves.eventreserves.exception.EventReserveInvalideRequestException;
+import com.pointreserve.reserves.eventreserves.exception.EventReservesNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

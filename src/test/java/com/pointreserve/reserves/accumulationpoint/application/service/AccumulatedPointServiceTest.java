@@ -7,7 +7,7 @@ import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRe
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
-import com.pointreserve.reserves.eventReserves.domain.ReservesStatus;
+import com.pointreserve.reserves.eventreserves.domain.ReservesStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,8 +21,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.pointreserve.reserves.eventReserves.domain.ReservesStatus.REDEEM;
-import static com.pointreserve.reserves.eventReserves.domain.ReservesStatus.SAVEUP;
+import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDEEM;
+import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.SAVEUP;
 
 @SpringBootTest
 @ActiveProfiles("local")

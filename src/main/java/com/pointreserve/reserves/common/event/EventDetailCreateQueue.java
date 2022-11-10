@@ -1,6 +1,6 @@
 package com.pointreserve.reserves.common.event;
 
-import com.pointreserve.reserves.eventDetail.ui.dto.EventDetailCreate;
+import com.pointreserve.reserves.eventdetail.ui.dto.EventDetailCreate;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Queue;
