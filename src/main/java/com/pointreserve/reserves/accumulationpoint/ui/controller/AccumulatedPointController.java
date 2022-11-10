@@ -1,38 +1,33 @@
-package com.pointreserve.reserves.account.ui.controller;
+package com.pointreserve.reserves.accumulationpoint.ui.controller;
 
-import com.pointreserve.reserves.account.application.service.AccountService;
-import com.pointreserve.reserves.account.ui.dto.AccountCreate;
-import com.pointreserve.reserves.account.ui.dto.AccountResponse;
+import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.ConsumptionProbe;
-import io.github.bucket4j.Refill;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
-import java.util.Arrays;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class AccountController {
+public class AccumulatedPointController {
 
 
-    private final AccountService accountService;
+    private final AccumulatedPointService accumulatedPointService;
 
     @PostMapping("/reserves/create/{memberId}")
-    public ResponseEntity<AccountResponse> createAccount(@PathVariable(name = "memberId") Long memberId){
+    public ResponseEntity<AccumulatedPointResponse> createAccount(@PathVariable(name = "memberId") Long memberId){
 
-        Bucket bucket = accountService.resolveBucket("");
-        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+        ConsumptionProbe probe = setProbe("");
 
         long saveToekn = probe.getRemainingTokens();
 
         if (probe.isConsumed()) {
-            AccountResponse response = accountService.createAccount(AccountCreate.builder()
+            AccumulatedPointResponse response = accumulatedPointService.createAccount(AccumulatedPointCreate.builder()
                     .memberId(memberId).build());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
@@ -44,28 +39,31 @@ public class AccountController {
 
     @DeleteMapping("/reserves/delete/{memberId}")
     public void deleteAccount(@PathVariable Long memberId) {
-        accountService.deleteAccount(memberId);
+        accumulatedPointService.deleteAccount(memberId);
     }
 
     @GetMapping("/reserves/get/{memberId}")
-    public ResponseEntity<AccountResponse> getAccount(@PathVariable Long memberId) {
+    public ResponseEntity<AccumulatedPointResponse> getAccount(@PathVariable Long memberId) {
 
-        Bucket bucket = accountService.resolveBucket("five");
-        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+        ConsumptionProbe probe = setProbe("five");
 
         long saveToekn = probe.getRemainingTokens();
-
 
         if (probe.isConsumed()) {
 //            log.info("Success");
 //            log.info("Available Toekn : {} ", saveToekn);
-            return ResponseEntity.status(HttpStatus.OK).body(accountService.getAccount(memberId));
+            return ResponseEntity.status(HttpStatus.OK).body(accumulatedPointService.getAccount(memberId));
         }
 
         long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
 
         log.info("TOO MANY REQUEST. Wait Time {} Second ", waitForRefill);
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+    }
+
+    private ConsumptionProbe setProbe(String key) {
+        Bucket bucket = accumulatedPointService.resolveBucket(key);
+        return bucket.tryConsumeAndReturnRemaining(1);
     }
 
 }

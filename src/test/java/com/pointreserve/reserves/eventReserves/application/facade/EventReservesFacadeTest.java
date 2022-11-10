@@ -1,39 +1,31 @@
 package com.pointreserve.reserves.eventReserves.application.facade;
 
-import com.pointreserve.reserves.account.application.service.AccountService;
-import com.pointreserve.reserves.account.domain.Account;
-import com.pointreserve.reserves.account.exception.AccountNotFound;
-import com.pointreserve.reserves.account.ui.dto.AccountEdit;
-import com.pointreserve.reserves.account.ui.dto.AccountResponse;
-import com.pointreserve.reserves.common.component.EventPublisher;
-import com.pointreserve.reserves.eventDetail.ui.dto.EventDetailCreate;
+import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
 import com.pointreserve.reserves.eventReserves.application.service.EventReservesService;
-import com.pointreserve.reserves.eventReserves.domain.EventReserves;
-import com.pointreserve.reserves.eventReserves.domain.ReservesStatus;
 import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesCreate;
 import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesResponse;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import static com.pointreserve.reserves.eventReserves.domain.ReservesStatus.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("local")
 class EventReservesFacadeTest {
 
     @Autowired
     private EventReservesFacade eventReservesFacade;
 
     @MockBean
-    private AccountService accountService;
+    private AccumulatedPointService accumulatedPointService;
 
     @SpyBean
     private EventReservesService eventReservesService;
@@ -44,11 +36,11 @@ class EventReservesFacadeTest {
         // given
         EventReservesCreate given = EventReservesCreate.builder().memberId(1L).amount(10).reservesStatus(SAVEUP).build();
 
-        Mockito.when( accountService.getAccount( given.getMemberId() ) ).then(invocation -> {
-            return new AccountResponse(1L, 1L, 100);
+        Mockito.when( accumulatedPointService.getAccount( given.getMemberId() ) ).then(invocation -> {
+            return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accountService.updateAccount(given.getMemberId(), AccountEdit.builder().build()) ).then(invocation -> {
-            return new AccountResponse(1L, 1L, 110);
+        Mockito.when( accumulatedPointService.updateAccount(given.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+            return new AccumulatedPointResponse(1L, 1L, 110);
         });
 
 

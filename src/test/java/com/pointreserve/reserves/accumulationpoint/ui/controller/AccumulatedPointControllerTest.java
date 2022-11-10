@@ -1,8 +1,8 @@
-package com.pointreserve.reserves.account.ui.controller;
+package com.pointreserve.reserves.accumulationpoint.ui.controller;
 
-import com.pointreserve.reserves.account.application.service.AccountService;
-import com.pointreserve.reserves.account.domain.Account;
-import com.pointreserve.reserves.account.infra.AccountRepository;
+import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
+import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPoint;
+import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -27,20 +28,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "api.PointReserve.com", uriPort = 443)
 @ExtendWith(RestDocumentationExtension.class)
-class AccountControllerTest {
+@ActiveProfiles("local")
+class AccumulatedPointControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private AccountService accountService;
+    private AccumulatedPointService accumulatedPointService;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccumulatedPointPointRepository accumulatedPointPointRepository;
 
     @BeforeEach
     void clean(){
-        accountRepository.deleteAll();
+        accumulatedPointPointRepository.deleteAll();
+        accumulatedPointService.clearBucket();
     }
 
     @Test
@@ -72,8 +75,8 @@ class AccountControllerTest {
     void createAmountFailTest() throws Exception {
         // given
         Long memberId = 1L;
-        Account account = Account.builder().memberId(memberId).totalAmount(0).build();
-        accountRepository.save(account);
+        AccumulatedPoint accumulatedPoint = AccumulatedPoint.builder().memberId(memberId).totalAmount(0).build();
+        accumulatedPointPointRepository.save(accumulatedPoint);
         // expect
         mockMvc.perform(post("/reserves/create/{memberId}", memberId)
                         .contentType(APPLICATION_JSON))
@@ -96,8 +99,8 @@ class AccountControllerTest {
     void deleteAccountTest() throws Exception {
         //given
         Long memberId = 1L;
-        Account account = Account.builder().memberId(memberId).totalAmount(0).build();
-        accountRepository.save(account);
+        AccumulatedPoint accumulatedPoint = AccumulatedPoint.builder().memberId(memberId).totalAmount(0).build();
+        accumulatedPointPointRepository.save(accumulatedPoint);
 
         // expect
         mockMvc.perform(delete("/reserves/delete/{memberId}",memberId)
@@ -138,8 +141,8 @@ class AccountControllerTest {
         //given
         Long memberId = 1L;
         int totalAmount = 100;
-        Account account = new Account(memberId, totalAmount);
-        accountRepository.save(account);
+        AccumulatedPoint accumulatedPoint = new AccumulatedPoint(memberId, totalAmount);
+        accumulatedPointPointRepository.save(accumulatedPoint);
         // expect
         mockMvc.perform(get("/reserves/get/{memberId}",memberId)
                         .contentType(APPLICATION_JSON))

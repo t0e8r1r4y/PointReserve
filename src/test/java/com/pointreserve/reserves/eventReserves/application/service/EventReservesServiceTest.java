@@ -1,10 +1,9 @@
 package com.pointreserve.reserves.eventReserves.application.service;
 
-import com.pointreserve.reserves.account.application.service.AccountService;
-import com.pointreserve.reserves.account.exception.AccountInvalidRequest;
-import com.pointreserve.reserves.account.ui.dto.AccountEdit;
-import com.pointreserve.reserves.account.ui.dto.AccountResponse;
-import com.pointreserve.reserves.eventReserves.application.service.EventReservesService;
+import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountInvalidRequest;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
 import com.pointreserve.reserves.eventReserves.domain.EventReserves;
 import com.pointreserve.reserves.eventReserves.infra.EventReservesRepository;
 import com.pointreserve.reserves.eventReserves.exception.EventReservesNotFound;
@@ -20,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,7 @@ import java.util.List;
 import static com.pointreserve.reserves.eventReserves.domain.ReservesStatus.SAVEUP;
 
 @SpringBootTest
+@ActiveProfiles("local")
 class EventReservesServiceTest {
 
     @Autowired
@@ -36,7 +37,7 @@ class EventReservesServiceTest {
     private EventReservesRepository eventReservesRepository;
 
     @MockBean
-    private AccountService accountService;
+    private AccumulatedPointService accumulatedPointService;
 
     @BeforeEach
     void clean() {
@@ -49,11 +50,11 @@ class EventReservesServiceTest {
         // given
         EventReservesCreate given = EventReservesCreate.builder().memberId(1L).amount(10).reservesStatus(SAVEUP).build();
 
-        Mockito.when( accountService.getAccount( given.getMemberId() ) ).then(invocation -> {
-            return new AccountResponse(1L, 1L, 100);
+        Mockito.when( accumulatedPointService.getAccount( given.getMemberId() ) ).then(invocation -> {
+            return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accountService.updateAccount(given.getMemberId(), AccountEdit.builder().build()) ).then(invocation -> {
-            return new AccountResponse(1L, 1L, 110);
+        Mockito.when( accumulatedPointService.updateAccount(given.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+            return new AccumulatedPointResponse(1L, 1L, 110);
         });
 
         // when
@@ -73,11 +74,11 @@ class EventReservesServiceTest {
         // given
         EventReservesCreate given = EventReservesCreate.builder().memberId(null).amount(0).reservesStatus(SAVEUP).build();
 
-        Mockito.when( accountService.getAccount( given.getMemberId() ) ).then(invocation -> {
-            return new AccountResponse(1L, 1L, 100);
+        Mockito.when( accumulatedPointService.getAccount( given.getMemberId() ) ).then(invocation -> {
+            return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accountService.updateAccount(given.getMemberId(), AccountEdit.builder().build()) ).then(invocation -> {
-            return new AccountResponse(1L, 1L, 110);
+        Mockito.when( accumulatedPointService.updateAccount(given.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+            return new AccumulatedPointResponse(1L, 1L, 110);
         });
 
         // then
@@ -92,11 +93,11 @@ class EventReservesServiceTest {
         // given
         EventReservesCreate given = EventReservesCreate.builder().memberId(null).amount(0).reservesStatus(SAVEUP).build();
 
-        Mockito.when( accountService.getAccount( given.getMemberId() ) ).then(invocation -> {
-            return new AccountResponse(1L, 1L, -10);
+        Mockito.when( accumulatedPointService.getAccount( given.getMemberId() ) ).then(invocation -> {
+            return new AccumulatedPointResponse(1L, 1L, -10);
         });
-        Mockito.when( accountService.updateAccount(given.getMemberId(), AccountEdit.builder().build()) ).then(invocation -> {
-            return AccountResponse.builder().build();
+        Mockito.when( accumulatedPointService.updateAccount(given.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+            return AccumulatedPointResponse.builder().build();
         });
 
         // then

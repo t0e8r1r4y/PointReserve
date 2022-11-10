@@ -1,4 +1,4 @@
-package com.pointreserve.reserves.account.exception;
+package com.pointreserve.reserves.accumulationpoint.exception;
 
 import com.pointreserve.reserves.common.exception.ReservesException;
 

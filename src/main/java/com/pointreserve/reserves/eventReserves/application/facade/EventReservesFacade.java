@@ -1,8 +1,8 @@
 package com.pointreserve.reserves.eventReserves.application.facade;
 
-import com.pointreserve.reserves.account.application.service.AccountService;
-import com.pointreserve.reserves.account.ui.dto.AccountEdit;
-import com.pointreserve.reserves.account.ui.dto.AccountResponse;
+import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
 import com.pointreserve.reserves.common.component.EventPublisher;
 import com.pointreserve.reserves.eventDetail.ui.dto.EventDetailCreate;
 import com.pointreserve.reserves.eventReserves.application.service.EventReservesService;
@@ -26,22 +26,22 @@ public class EventReservesFacade {
 
     private final EventReservesService eventReservesService;
 
-    private final AccountService accountService;
+    private final AccumulatedPointService accumulatedPointService;
 
     public EventReservesResponse createEventReserves(EventReservesCreate eventReservesCreate) {
 
         EventReserves eventReserves = eventReservesCreate.toEntity();
 
-        AccountResponse accountResponse = accountService.getAccount(eventReserves.getMemberId());
+        AccumulatedPointResponse accumulatedPointResponse = accumulatedPointService.getAccount(eventReserves.getMemberId());
 
         // 금액 계산
-        AccountEdit accountEdit = AccountEdit.builder()
-                .totalAmount(calUpdateAmount( eventReserves, accountResponse.getTotalAmount() ))
+        AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
+                .totalAmount(calUpdateAmount( eventReserves, accumulatedPointResponse.getTotalAmount() ))
                 .build();
         // 금액 유효성 검사
-        accountEdit.isValid();
+        accumulatedPointEdit.isValid();
         // 업데이트 요청
-        accountService.updateAccount(eventReserves.getMemberId(), accountEdit);
+        accumulatedPointService.updateAccount(eventReserves.getMemberId(), accumulatedPointEdit);
         // 이벤트 저장
         EventReserves saveResult = eventReservesService.saveEventReserves(eventReserves);
         // 이벤트 발행
@@ -61,15 +61,15 @@ public class EventReservesFacade {
         // 이전 정보 조회
         EventReservesResponse beforeHistory = eventReservesService.getEventReserves(beforeEventId);
         // 업데이트 대상 조회
-        AccountResponse accountResponse = accountService.getAccount(eventReserves.getMemberId());
+        AccumulatedPointResponse accumulatedPointResponse = accumulatedPointService.getAccount(eventReserves.getMemberId());
         // 금액 계산
-        AccountEdit accountEdit = AccountEdit.builder()
-                .totalAmount( accountResponse.getTotalAmount() + abs(beforeHistory.getAmount()) )
+        AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
+                .totalAmount( accumulatedPointResponse.getTotalAmount() + abs(beforeHistory.getAmount()) )
                 .build();
         // 금액 유효성 검사
-        accountEdit.isValid();
+        accumulatedPointEdit.isValid();
         // 업데이트 요청
-        accountService.updateAccount(eventReserves.getMemberId(), accountEdit);
+        accumulatedPointService.updateAccount(eventReserves.getMemberId(), accumulatedPointEdit);
         // 저장
         EventReserves saveResult = eventReservesService.saveEventReserves(eventReserves);
         // 이벤트 발행
