@@ -1,4 +1,4 @@
-package com.pointreserve.reserves.account.domain;
+package com.pointreserve.reserves.accumulationpoint.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "ACCOUNT")
-public class Account {
+public class AccumulatedPoint {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,17 +24,17 @@ public class Account {
     private int totalAmount;
 
     @Builder
-    public Account(Long memberId, int totalAmount) {
+    public AccumulatedPoint(Long memberId, int totalAmount) {
         this.memberId = memberId;
         this.totalAmount = totalAmount;
     }
 
 
-    public AccountEditor.AccountEditorBuilder toEditor(){
-        return AccountEditor.builder().totalAmount(totalAmount);
+    public AccumulatedPointEditor.AccumulatedPointEditorBuilder toEditor(){
+        return AccumulatedPointEditor.builder().totalAmount(totalAmount);
     }
 
-    public void edit(AccountEditor reservesAmountEdit) {
+    public void edit(AccumulatedPointEditor reservesAmountEdit) {
         this.totalAmount = reservesAmountEdit.getTotalAmount();
     }
 }

@@ -1,14 +1,14 @@
-package com.pointreserve.reserves.account.domain;
+package com.pointreserve.reserves.accumulationpoint.domain;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class AccountEditor {
+public class AccumulatedPointEditor {
     private final int totalAmount;
 
     @Builder
-    public AccountEditor(int totalAmount) {
+    public AccumulatedPointEditor(int totalAmount) {
         this.totalAmount = totalAmount;
     }
 }

@@ -1,9 +1,9 @@
 package com.pointreserve.reserves.common.controller;
 
-import com.pointreserve.reserves.account.exception.AccountConfilct;
-import com.pointreserve.reserves.account.exception.AccountInvalidRequest;
-import com.pointreserve.reserves.account.exception.AccountNotFound;
-import com.pointreserve.reserves.account.ui.dto.ErrorResponse;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountConfilct;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountInvalidRequest;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFound;
+import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointErrorResponse;
 import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFound;
 import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequest;
 import com.pointreserve.reserves.eventReserves.exception.EventReservesNotFound;
@@ -17,11 +17,11 @@ public class ExceptionController {
 
     @ResponseBody
     @ExceptionHandler(AccountNotFound.class)
-    public ResponseEntity<ErrorResponse> ErrorResponse (AccountNotFound e){
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountNotFound e){
 
         int statusCode = e.statusCode();
 
-        ErrorResponse body = ErrorResponse.builder()
+        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
                 .code(String.valueOf(statusCode))
                 .message(e.getMessage())
                 .validation(e.getValidation())
@@ -34,11 +34,11 @@ public class ExceptionController {
 
     @ResponseBody
     @ExceptionHandler(EventReservesNotFound.class)
-    public ResponseEntity<ErrorResponse> ErrorResponse (EventReservesNotFound e){
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventReservesNotFound e){
 
         int statusCode = e.statusCode();
 
-        ErrorResponse body = ErrorResponse.builder()
+        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
                 .code(String.valueOf(statusCode))
                 .message(e.getMessage())
                 .validation(e.getValidation())
@@ -51,11 +51,11 @@ public class ExceptionController {
 
     @ResponseBody
     @ExceptionHandler(EventReserveInvalideRequest.class)
-    public ResponseEntity<ErrorResponse> ErrorResponse (EventReserveInvalideRequest e){
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventReserveInvalideRequest e){
 
         int statusCode = e.statusCode();
 
-        ErrorResponse body = ErrorResponse.builder()
+        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
                 .code(String.valueOf(statusCode))
                 .message(e.getMessage())
                 .validation(e.getValidation())
@@ -68,11 +68,11 @@ public class ExceptionController {
 
     @ResponseBody
     @ExceptionHandler(EventDetailNotFound.class)
-    public ResponseEntity<ErrorResponse> ErrorResponse (EventDetailNotFound e){
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventDetailNotFound e){
 
         int statusCode = e.statusCode();
 
-        ErrorResponse body = ErrorResponse.builder()
+        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
                 .code(String.valueOf(statusCode))
                 .message(e.getMessage())
                 .validation(e.getValidation())
@@ -85,11 +85,11 @@ public class ExceptionController {
 
     @ResponseBody
     @ExceptionHandler(AccountInvalidRequest.class)
-    public ResponseEntity<ErrorResponse> ErrorResponse (AccountInvalidRequest e){
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountInvalidRequest e){
 
         int statusCode = e.statusCode();
 
-        ErrorResponse body = ErrorResponse.builder()
+        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
                 .code(String.valueOf(statusCode))
                 .message(e.getMessage())
                 .validation(e.getValidation())
@@ -102,11 +102,11 @@ public class ExceptionController {
 
     @ResponseBody
     @ExceptionHandler(AccountConfilct.class)
-    public ResponseEntity<ErrorResponse> ErrorResponse (AccountConfilct e){
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountConfilct e){
 
         int statusCode = e.statusCode();
 
-        ErrorResponse body = ErrorResponse.builder()
+        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
                 .code(String.valueOf(statusCode))
                 .message(e.getMessage())
                 .validation(e.getValidation())

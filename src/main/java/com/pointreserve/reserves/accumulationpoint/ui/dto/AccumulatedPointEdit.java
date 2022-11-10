@@ -1,6 +1,6 @@
-package com.pointreserve.reserves.account.ui.dto;
+package com.pointreserve.reserves.accumulationpoint.ui.dto;
 
-import com.pointreserve.reserves.account.exception.AccountInvalidRequest;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountInvalidRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,13 +11,13 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class AccountEdit {
+public class AccumulatedPointEdit {
 
     @NotNull(message = "금액은 필수 입력사항입니다.")
     private int totalAmount;
 
     @Builder
-    public AccountEdit(int totalAmount) {
+    public AccumulatedPointEdit(int totalAmount) {
         this.totalAmount = totalAmount;
     }
 
