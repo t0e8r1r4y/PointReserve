@@ -1,8 +1,8 @@
 package com.pointreserve.reserves.common.controller;
 
-import com.pointreserve.reserves.accumulationpoint.exception.AccountConfilct;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountInvalidRequest;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFound;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountConfilctException;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountInvalidRequestException;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointErrorResponse;
 import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFound;
 import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequest;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ExceptionController {
 
     @ResponseBody
-    @ExceptionHandler(AccountNotFound.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountNotFound e){
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountNotFoundException e){
 
         int statusCode = e.statusCode();
 
@@ -84,8 +84,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(AccountInvalidRequest.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountInvalidRequest e){
+    @ExceptionHandler(AccountInvalidRequestException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountInvalidRequestException e){
 
         int statusCode = e.statusCode();
 
@@ -101,8 +101,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(AccountConfilct.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountConfilct e){
+    @ExceptionHandler(AccountConfilctException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccountConfilctException e){
 
         int statusCode = e.statusCode();
 

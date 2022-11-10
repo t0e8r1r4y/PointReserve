@@ -4,11 +4,11 @@ import com.pointreserve.reserves.common.exception.ReservesException;
 import lombok.Getter;
 
 @Getter
-public class AccountInvalidRequest extends ReservesException {
+public class AccountInvalidRequestException extends ReservesException {
 
     private static final String MESSAGE = "잘못된 요청입니다.";
 
-    public AccountInvalidRequest(String fieldName, String message) {
+    public AccountInvalidRequestException(String fieldName, String message) {
         super(MESSAGE);
         addValidation(fieldName, message);
     }

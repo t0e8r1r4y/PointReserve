@@ -2,7 +2,7 @@ package com.pointreserve.reserves.accumulationpoint.application.service;
 
 import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPoint;
 import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRepository;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFound;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
@@ -13,11 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @SpringBootTest
 @ActiveProfiles("local")
@@ -66,7 +61,7 @@ class AccumulatedPointServiceTest {
     @DisplayName("적립금 계정 삭제 실패 서비스 테스트")
     void deleteAccountFailTest() {
         //then
-        Assertions.assertThrows( AccountNotFound.class, () -> {
+        Assertions.assertThrows( AccountNotFoundException.class, () -> {
             accumulatedPointService.deleteAccount(1L);
         });
     }
@@ -84,34 +79,34 @@ class AccumulatedPointServiceTest {
 
     // 테스트가 틀렸다.
     // account update 관련 로직을 수정하고 테스트도 수정한다.
-    @Test
-    @DisplayName("적립금 계정 업데이트 동시성 테스트")
-    void updateAccountConcurrency() throws InterruptedException {
-        // given
-        accumulatedPointPointRepository.saveAndFlush(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
-        int threadCount = 100;
-        ExecutorService executorService = Executors.newFixedThreadPool(32);
-        CountDownLatch latch = new CountDownLatch(threadCount);
-
-        // when
-        for (int i = 0; i < threadCount; i++) {
-            int finalI = i;
-            executorService.submit(() -> {
-               try {
-                   accumulatedPointService.updateAccount(1L, AccumulatedPointEdit.builder().totalAmount(1000 + (100*(finalI +1))).build());
-               } finally {
-                   latch.countDown();
-               }
-            });
-        }
-
-        latch.await();
-
-        // then
-        Optional<AccumulatedPoint> response = accumulatedPointPointRepository.getByMemberId(1L);
-        System.out.println(response.get().getTotalAmount());
-        Assertions.assertEquals(11000, response.get().getTotalAmount());
-    }
+//    @Test
+//    @DisplayName("적립금 계정 업데이트 동시성 테스트")
+//    void updateAccountConcurrency() throws InterruptedException {
+//        // given
+//        accumulatedPointPointRepository.saveAndFlush(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
+//        int threadCount = 100;
+//        ExecutorService executorService = Executors.newFixedThreadPool(32);
+//        CountDownLatch latch = new CountDownLatch(threadCount);
+//
+//        // when
+//        for (int i = 0; i < threadCount; i++) {
+//            int finalI = i;
+//            executorService.submit(() -> {
+//               try {
+//                   accumulatedPointService.updateAccount(1L, AccumulatedPointEdit.builder().totalAmount(1000 + (100*(finalI +1))).build());
+//               } finally {
+//                   latch.countDown();
+//               }
+//            });
+//        }
+//
+//        latch.await();
+//
+//        // then
+//        Optional<AccumulatedPoint> response = accumulatedPointPointRepository.getByMemberId(1L);
+//        System.out.println(response.get().getTotalAmount());
+//        Assertions.assertEquals(11000, response.get().getTotalAmount());
+//    }
 
     @Test
     @DisplayName("적립금 계정 업데이트 실패 테스트")
@@ -120,7 +115,7 @@ class AccumulatedPointServiceTest {
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
 
         //then
-        Assertions.assertThrows( AccountNotFound.class, () -> {
+        Assertions.assertThrows( AccountNotFoundException.class, () -> {
             accumulatedPointService.updateAccount(2L, AccumulatedPointEdit.builder().totalAmount(20000).build());
         });
     }
@@ -148,7 +143,7 @@ class AccumulatedPointServiceTest {
         // when
 
         // then
-        Assertions.assertThrows( AccountNotFound.class, () -> {
+        Assertions.assertThrows( AccountNotFoundException.class, () -> {
             accumulatedPointService.getAccount(2L);
         });
     }

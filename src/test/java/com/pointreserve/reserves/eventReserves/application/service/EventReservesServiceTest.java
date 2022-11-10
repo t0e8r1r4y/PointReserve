@@ -1,7 +1,7 @@
 package com.pointreserve.reserves.eventReserves.application.service;
 
 import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountInvalidRequest;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountInvalidRequestException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
 import com.pointreserve.reserves.eventReserves.domain.EventReserves;
@@ -101,7 +101,7 @@ class EventReservesServiceTest {
         });
 
         // then
-        Assertions.assertThrows( AccountInvalidRequest.class, () -> {
+        Assertions.assertThrows( AccountInvalidRequestException.class, () -> {
             eventReservesService.createEventReserves(given);
         });
     }

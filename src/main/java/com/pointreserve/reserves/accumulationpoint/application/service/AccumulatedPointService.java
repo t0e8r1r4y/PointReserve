@@ -2,9 +2,9 @@ package com.pointreserve.reserves.accumulationpoint.application.service;
 
 import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPoint;
 import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPointEditor;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountConfilct;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountConfilctException;
 import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRepository;
-import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFound;
+import com.pointreserve.reserves.accumulationpoint.exception.AccountNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
@@ -47,7 +47,7 @@ public class AccumulatedPointService {
     @Transactional
     public AccumulatedPointResponse createAccount(AccumulatedPointCreate accumulatedPointCreate) {
         if( accumulatedPointPointRepository.getByMemberId(accumulatedPointCreate.getMemberId()).isPresent() ){
-            throw new AccountConfilct();
+            throw new AccountConfilctException();
         }
         return AccumulatedPointResponse.builder()
                 .accumulatedPoint( accumulatedPointPointRepository.save( accumulatedPointCreate.toEntity() )  )
@@ -57,7 +57,7 @@ public class AccumulatedPointService {
     @Transactional
     public void deleteAccount( Long memberId ) {
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
-                .orElseThrow(() -> new AccountNotFound());
+                .orElseThrow(() -> new AccountNotFoundException());
 
         accumulatedPointPointRepository.delete(accumulatedPoint);
         return;
@@ -66,7 +66,7 @@ public class AccumulatedPointService {
     @Transactional
     public AccumulatedPointResponse updateAccount(Long memberId, AccumulatedPointEdit accumulatedPointEdit){
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
-                .orElseThrow(() -> new AccountNotFound());
+                .orElseThrow(() -> new AccountNotFoundException());
 
         AccumulatedPointEditor.AccumulatedPointEditorBuilder amountEditorBuilder = accumulatedPoint.toEditor();
         AccumulatedPointEditor accumulatedPointEditor = amountEditorBuilder.totalAmount(accumulatedPointEdit.getTotalAmount()).build();
@@ -79,7 +79,7 @@ public class AccumulatedPointService {
     @Transactional
     public AccumulatedPointResponse getAccount(Long memberId ){
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
-                .orElseThrow(() -> new AccountNotFound());
+                .orElseThrow(() -> new AccountNotFoundException());
         return AccumulatedPointResponse.builder().accumulatedPoint(accumulatedPoint).build();
     }
 
