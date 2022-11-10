@@ -24,10 +24,10 @@ public class AccumulatedPointController {
 
         ConsumptionProbe probe = setProbe("");
 
-        long saveToekn = probe.getRemainingTokens();
+        probe.getRemainingTokens();
 
         if (probe.isConsumed()) {
-            AccumulatedPointResponse response = accumulatedPointService.createAccount(AccumulatedPointCreate.builder()
+            AccumulatedPointResponse response = accumulatedPointService.createAccumulatedPoint(AccumulatedPointCreate.builder()
                     .memberId(memberId).build());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
@@ -39,7 +39,7 @@ public class AccumulatedPointController {
 
     @DeleteMapping("/reserves/delete/{memberId}")
     public ResponseEntity<AccumulatedPointResponse> deleteAccount(@PathVariable Long memberId) {
-        return ResponseEntity.status(HttpStatus.OK).body(accumulatedPointService.deleteAccount(memberId));
+        return ResponseEntity.status(HttpStatus.OK).body(accumulatedPointService.deleteAccumulatedPoint(memberId));
     }
 
     @GetMapping("/reserves/get/{memberId}")
@@ -47,12 +47,10 @@ public class AccumulatedPointController {
 
         ConsumptionProbe probe = setProbe("five");
 
-        long saveToekn = probe.getRemainingTokens();
+        probe.getRemainingTokens();
 
         if (probe.isConsumed()) {
-//            log.info("Success");
-//            log.info("Available Toekn : {} ", saveToekn);
-            return ResponseEntity.status(HttpStatus.OK).body(accumulatedPointService.getAccount(memberId));
+            return ResponseEntity.status(HttpStatus.OK).body(accumulatedPointService.getAccumulatedPoint(memberId));
         }
 
         long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
