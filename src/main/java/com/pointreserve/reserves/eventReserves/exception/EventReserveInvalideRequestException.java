@@ -4,11 +4,11 @@ import com.pointreserve.reserves.common.exception.ReservesException;
 import lombok.Getter;
 
 @Getter
-public class EventReserveInvalideRequest extends ReservesException {
+public class EventReserveInvalideRequestException extends ReservesException {
 
     private static final String MESSAGE = "잘못된 요청입니다.";
 
-    public EventReserveInvalideRequest(String fieldName, String message) {
+    public EventReserveInvalideRequestException(String fieldName, String message) {
         super(MESSAGE);
         addValidation(fieldName, message);
     }

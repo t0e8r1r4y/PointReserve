@@ -2,7 +2,7 @@ package com.pointreserve.reserves.eventReserves.ui.dto;
 
 import com.pointreserve.reserves.eventReserves.domain.EventReserves;
 import com.pointreserve.reserves.eventReserves.domain.ReservesStatus;
-import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequest;
+import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequestException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +42,7 @@ public class EventReservesCancel {
 
     public void isStatusValid(){
         if(reservesStatus != ReservesStatus.CANCLE_REDEEM) {
-            throw new EventReserveInvalideRequest("status", "현재는 적립금 사용 취소만 가능합니다.");
+            throw new EventReserveInvalideRequestException("status", "현재는 적립금 사용 취소만 가능합니다.");
         }
     }
 }

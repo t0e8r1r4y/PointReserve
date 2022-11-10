@@ -1,6 +1,7 @@
 package com.pointreserve.reserves.eventReserves.application.facade;
 
 import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
+import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointInvalidRequestException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
 import com.pointreserve.reserves.common.component.EventPublisher;
@@ -14,6 +15,7 @@ import com.pointreserve.reserves.eventReserves.ui.dto.EventReservesResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static java.lang.Math.abs;
 
@@ -28,22 +30,14 @@ public class EventReservesFacade {
 
     private final AccumulatedPointService accumulatedPointService;
 
+    @ExceptionHandler(AccumulatedPointInvalidRequestException.class)
     public EventReservesResponse createEventReserves(EventReservesCreate eventReservesCreate) {
 
         EventReserves eventReserves = eventReservesCreate.toEntity();
-
-        AccumulatedPointResponse accumulatedPointResponse = accumulatedPointService.getAccumulatedPoint(eventReserves.getMemberId());
-
-        // 금액 계산
-        AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
-                .totalAmount(calUpdateAmount( eventReserves, accumulatedPointResponse.getTotalAmount() ))
-                .build();
-        // 금액 유효성 검사
-        accumulatedPointEdit.isValid();
-        // 업데이트 요청
-//        accumulatedPointService.updateAccumulatedPoint(eventReserves.getMemberId(), accumulatedPointEdit);
         // 이벤트 저장
         EventReserves saveResult = eventReservesService.saveEventReserves(eventReserves);
+        // 총계 업데이트
+        accumulatedPointService.calcPointAndUpdate(saveResult.getMemberId(), saveResult.getAmount(), saveResult.getStatus());
         // 이벤트 발행
         EventDetailCreate eventDetailCreate = new EventDetailCreate(saveResult);
         eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.STANDBY);

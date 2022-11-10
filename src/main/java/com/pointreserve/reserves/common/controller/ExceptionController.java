@@ -5,8 +5,8 @@ import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointInv
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointErrorResponse;
 import com.pointreserve.reserves.eventDetail.exception.EventDetailNotFound;
-import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequest;
-import com.pointreserve.reserves.eventReserves.exception.EventReservesNotFound;
+import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequestException;
+import com.pointreserve.reserves.eventReserves.exception.EventReservesNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,8 +33,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(EventReservesNotFound.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventReservesNotFound e){
+    @ExceptionHandler(EventReservesNotFoundException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventReservesNotFoundException e){
 
         int statusCode = e.statusCode();
 
@@ -50,8 +50,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(EventReserveInvalideRequest.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventReserveInvalideRequest e){
+    @ExceptionHandler(EventReserveInvalideRequestException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventReserveInvalideRequestException e){
 
         int statusCode = e.statusCode();
 

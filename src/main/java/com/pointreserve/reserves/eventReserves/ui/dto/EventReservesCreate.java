@@ -2,7 +2,7 @@ package com.pointreserve.reserves.eventReserves.ui.dto;
 
 import com.pointreserve.reserves.eventReserves.domain.EventReserves;
 import com.pointreserve.reserves.eventReserves.domain.ReservesStatus;
-import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequest;
+import com.pointreserve.reserves.eventReserves.exception.EventReserveInvalideRequestException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,15 +41,15 @@ public class EventReservesCreate {
 
     public void isAmountValid() {
         if( amount <= 0 ) {
-            throw new EventReserveInvalideRequest("amount", "금액은 0원 이하가 될 수 없습니다.");
+            throw new EventReserveInvalideRequestException("amount", "금액은 0원 이하가 될 수 없습니다.");
         } else if( amount > 1000000 ) {
-            throw new EventReserveInvalideRequest("amount", "적립금액은 1,000,000원을 초과 할 수 없습니다.");
+            throw new EventReserveInvalideRequestException("amount", "적립금액은 1,000,000원을 초과 할 수 없습니다.");
         }
     }
 
     public void isStatusValid(){
         if(reservesStatus != ReservesStatus.SAVEUP && reservesStatus != ReservesStatus.REDEEM) {
-            throw new EventReserveInvalideRequest("status", "해당 요청은 적립과 사용만 입력 할 수 있습니다.");
+            throw new EventReserveInvalideRequestException("status", "해당 요청은 적립과 사용만 입력 할 수 있습니다.");
         }
     }
 }
