@@ -110,6 +110,11 @@ class AccumulatedPointControllerTest {
                         "account_delete",
                         pathParameters(
                                 parameterWithName("memberId").description("회원번호")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("삭제된 포인트 계좌(Account) ID"),
+                                fieldWithPath("memberId").description("삭제된 회원번호"),
+                                fieldWithPath("totalAmount").description("삭제된 포인트 총계(최초 가입시 0원)")
                         )
                 ));
     }

@@ -55,12 +55,11 @@ public class AccumulatedPointService {
     }
 
     @Transactional
-    public void deleteAccount( Long memberId ) {
+    public AccumulatedPointResponse deleteAccount( Long memberId ) {
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
                 .orElseThrow(() -> new AccountNotFoundException());
-
         accumulatedPointPointRepository.delete(accumulatedPoint);
-        return;
+        return new AccumulatedPointResponse(accumulatedPoint);
     }
 
     @Transactional
