@@ -1,5 +1,6 @@
 package com.pointreserve.reserves.accumulationpoint.domain;
 
+import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPointEditor.AccumulatedPointEditorBuilder;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class AccumulatedPoint {
     }
 
 
-    public AccumulatedPointEditor.AccumulatedPointEditorBuilder toEditor(){
+    public AccumulatedPointEditorBuilder toEditor(){
         return AccumulatedPointEditor.builder().totalAmount(totalAmount);
     }
 
