@@ -73,9 +73,9 @@ class EventReservesControllerTest {
         Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-            return new AccumulatedPointResponse(1L, 1L, 110);
-        });
+//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+//            return new AccumulatedPointResponse(1L, 1L, 110);
+//        });
 
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -118,9 +118,9 @@ class EventReservesControllerTest {
         Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-            return new AccumulatedPointResponse(1L, 1L, 110);
-        });
+//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+//            return new AccumulatedPointResponse(1L, 1L, 110);
+//        });
 
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -159,9 +159,9 @@ class EventReservesControllerTest {
         Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-            return new AccumulatedPointResponse(1L, 1L, 110);
-        });
+//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+//            return new AccumulatedPointResponse(1L, 1L, 110);
+//        });
 
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -330,9 +330,9 @@ class EventReservesControllerTest {
         Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCancel.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCancel.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-            return new AccumulatedPointResponse(1L, 1L, 110);
-        });
+//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCancel.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+//            return new AccumulatedPointResponse(1L, 1L, 110);
+//        });
 
         ObjectMapper objectMapper = new ObjectMapper();
         String given = objectMapper.writeValueAsString(eventReservesCancel);

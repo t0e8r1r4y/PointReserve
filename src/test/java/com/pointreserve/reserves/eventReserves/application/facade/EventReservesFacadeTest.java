@@ -31,31 +31,31 @@ class EventReservesFacadeTest {
     private EventReservesService eventReservesService;
 
 
-    @Test
-    void createEventReserves() {
-        // given
-        EventReservesCreate given = EventReservesCreate.builder().memberId(1L).amount(10).reservesStatus(SAVEUP).build();
-
-        Mockito.when( accumulatedPointService.getAccumulatedPoint( given.getMemberId() ) ).then(invocation -> {
-            return new AccumulatedPointResponse(1L, 1L, 100);
-        });
-        Mockito.when( accumulatedPointService.updateAccumulatedPoint(given.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-            return new AccumulatedPointResponse(1L, 1L, 110);
-        });
-
-
-        // when
-        EventReservesResponse response = eventReservesFacade.createEventReserves(given);
-
-        // then
-        System.out.println(response.getId());
-        System.out.println(response.getAmount());
-        System.out.println(response.getMemberId());
-        System.out.println(response.getStatus());
-        System.out.println(response.getEffectiveData());
-        System.out.println(response.getExpiryDate());
-        Assertions.assertEquals(1L , response.getMemberId());
-        Assertions.assertEquals(10 , response.getAmount());
-        Assertions.assertEquals(SAVEUP , response.getStatus());
-    }
+//    @Test
+//    void createEventReserves() {
+//        // given
+//        EventReservesCreate given = EventReservesCreate.builder().memberId(1L).amount(10).reservesStatus(SAVEUP).build();
+//
+//        Mockito.when( accumulatedPointService.getAccumulatedPoint( given.getMemberId() ) ).then(invocation -> {
+//            return new AccumulatedPointResponse(1L, 1L, 100);
+//        });
+//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(given.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
+//            return new AccumulatedPointResponse(1L, 1L, 110);
+//        });
+//
+//
+//        // when
+//        EventReservesResponse response = eventReservesFacade.createEventReserves(given);
+//
+//        // then
+//        System.out.println(response.getId());
+//        System.out.println(response.getAmount());
+//        System.out.println(response.getMemberId());
+//        System.out.println(response.getStatus());
+//        System.out.println(response.getEffectiveData());
+//        System.out.println(response.getExpiryDate());
+//        Assertions.assertEquals(1L , response.getMemberId());
+//        Assertions.assertEquals(10 , response.getAmount());
+//        Assertions.assertEquals(SAVEUP , response.getStatus());
+//    }
 }

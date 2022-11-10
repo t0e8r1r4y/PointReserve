@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.LockModeType;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.pointreserve.reserves.accumulationpoint.domain.QAccumulatedPoint.accumulatedPoint;
@@ -17,9 +18,9 @@ public class AccumulatedPointRespositoryImpl implements AccountRepositoryCustom 
 
     @Override
     public Optional<AccumulatedPoint> getByMemberId(Long memberId) {
-        return Optional.of(jpaQueryFactory.selectFrom(accumulatedPoint)
+        return Optional.of(Objects.requireNonNull(jpaQueryFactory.selectFrom(accumulatedPoint)
                 .where(accumulatedPoint.memberId.eq(memberId))
-                .setLockMode(LockModeType.PESSIMISTIC_READ)
-                .fetchOne());
+                .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+                .fetchOne()));
     }
 }

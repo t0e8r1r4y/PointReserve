@@ -24,7 +24,7 @@ public class AccumulatedPointController {
 
         ConsumptionProbe probe = setProbe("");
 
-        long saveToekn = probe.getRemainingTokens();
+        probe.getRemainingTokens();
 
         if (probe.isConsumed()) {
             AccumulatedPointResponse response = accumulatedPointService.createAccumulatedPoint(AccumulatedPointCreate.builder()
@@ -47,11 +47,9 @@ public class AccumulatedPointController {
 
         ConsumptionProbe probe = setProbe("five");
 
-        long saveToekn = probe.getRemainingTokens();
+        probe.getRemainingTokens();
 
         if (probe.isConsumed()) {
-//            log.info("Success");
-//            log.info("Available Toekn : {} ", saveToekn);
             return ResponseEntity.status(HttpStatus.OK).body(accumulatedPointService.getAccumulatedPoint(memberId));
         }
 

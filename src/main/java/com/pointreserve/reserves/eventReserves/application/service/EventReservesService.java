@@ -52,7 +52,7 @@ public class EventReservesService {
         // 금액 유효성 검사
         accumulatedPointEdit.isValid();
         // 업데이트 요청
-        accumulatedPointService.updateAccumulatedPoint(eventReserves.getMemberId(), accumulatedPointEdit);
+//        accumulatedPointService.updateAccumulatedPoint(eventReserves.getMemberId(), accumulatedPointEdit);
         // 저장
         EventReserves saveResult = eventReservesRepository.save(eventReserves);
         // 이벤트 발행
@@ -85,7 +85,7 @@ public class EventReservesService {
         // 금액 유효성 검사
         accumulatedPointEdit.isValid();
         // 업데이트 요청
-        accumulatedPointService.updateAccumulatedPoint(eventReserves.getMemberId(), accumulatedPointEdit);
+//        accumulatedPointService.updateAccumulatedPoint(eventReserves.getMemberId(), accumulatedPointEdit);
         // 저장
         EventReserves saveResult = eventReservesRepository.save(eventReserves);
         // 이벤트 발행
