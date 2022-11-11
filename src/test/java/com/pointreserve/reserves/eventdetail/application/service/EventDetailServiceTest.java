@@ -65,8 +65,8 @@ class EventDetailServiceTest {
         Assertions.assertEquals(eventDetailCreate.getEventId(), "e-1");
         Assertions.assertEquals(eventDetailCreate.getEffectiveData(), testTime);
         Assertions.assertEquals(eventDetailCreate.getExpiryDate(), testTime.plusYears(1));
-        Assertions.assertEquals(eventDetailCreate.getSignUpId(), null);
-        Assertions.assertEquals(eventDetailCreate.getCancelId(), null);
+        Assertions.assertNull(eventDetailCreate.getSignUpId());
+        Assertions.assertNull(eventDetailCreate.getCancelId());
     }
 
     @Test
@@ -75,25 +75,12 @@ class EventDetailServiceTest {
         // given
         Long memberId = 1L;
         List<EventDetail> given = eventDetailRepository.saveAll(makeEvetDetailForRedeem()); // 기존 적립
-//        EventReserves eventResponse = eventReservesRepository.save(EventReserves.builder()
-//                .memberId(memberId)
-//                .amount(50)
-//                .status(ReservesStatus.REDEEM)
-//                .build());
-//        EventDetailCreate eventDetailCreate = new EventDetailCreate(eventResponse);
         int sumAmountBefore =  eventDetailRepository.sumAmount(memberId);
-//        // when
-//        eventDetailService.redeemReserves(eventDetailCreate);
-
         List<EventDetail> beforeList = eventDetailRepository.findAll();
         System.out.println("before list ==============================");
         for( EventDetail e : beforeList) {
             System.out.println(e.getId() + " " + e.getStatus() + " " + e.getAmount() + " " + e.getSignUpId() + " " + e.getCancelId() + " " + e.getEventId());
         }
-
-
-
-        // 적립과 사용이 일어난 상황에서 적립 내용 취소
         EventReserves cancelSaveUp = eventReservesRepository.save(EventReserves.builder()
                 .memberId(memberId)
                 .status(CANCLE_SAVEUP)

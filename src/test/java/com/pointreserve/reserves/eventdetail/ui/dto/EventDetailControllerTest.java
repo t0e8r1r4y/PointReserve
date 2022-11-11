@@ -1,6 +1,5 @@
 package com.pointreserve.reserves.eventdetail.ui.dto;
 
-import com.pointreserve.reserves.eventdetail.domain.EventDetail;
 import com.pointreserve.reserves.eventdetail.infra.EventDetailRepository;
 import com.pointreserve.reserves.eventreserves.domain.EventReserves;
 import com.pointreserve.reserves.eventreserves.infra.EventReservesRepository;
@@ -15,8 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
 
 import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.SAVEUP;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -109,13 +106,13 @@ class EventDetailControllerTest {
                 .andDo(print());
     }
 
-    private List<EventDetail> makeEvetDetailForRedeem(){
+    private void makeEvetDetailForRedeem(){
         Long memberId = 1L;
         for(int i = 0; i < 30; i++) {
             EventReserves e = eventReservesRepository.save(EventReserves.builder().memberId(memberId).amount(i+1).status(SAVEUP).build());
             eventDetailRepository.save(new EventDetailCreate(e).toEntity());
         }
-        return eventDetailRepository.findAll();
+        eventDetailRepository.findAll();
     }
 
 }
