@@ -1,14 +1,10 @@
 package com.pointreserve.reserves.eventreserves.application.facade;
 
 import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
-import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointInvalidRequestException;
-import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
-import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
 import com.pointreserve.reserves.common.event.EventPublisher;
 import com.pointreserve.reserves.eventdetail.ui.dto.EventDetailCreate;
 import com.pointreserve.reserves.eventreserves.application.service.EventReservesService;
 import com.pointreserve.reserves.eventreserves.domain.EventReserves;
-import com.pointreserve.reserves.eventreserves.domain.ReservesStatus;
 import com.pointreserve.reserves.eventreserves.ui.dto.EventReservesCancel;
 import com.pointreserve.reserves.eventreserves.ui.dto.EventReservesCreate;
 import com.pointreserve.reserves.eventreserves.ui.dto.EventReservesResponse;
@@ -16,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static com.pointreserve.reserves.eventdetail.ui.dto.EventDetailCreate.EventStatus.STANDBY;
 import static java.lang.Math.abs;
