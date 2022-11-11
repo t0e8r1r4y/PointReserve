@@ -13,8 +13,6 @@ public class TransactionEventScheduler {
     private final EventDetailCreateQueue eventQueue;
     private final EventDetailService eventDetailService;
 
-    // 제일 심플하게 여기 X
-//    @Async("taskScheduler")
     @Scheduled(fixedRate = 100)
     public void schedule() {
         new EventDetailCreateWorker(eventQueue, eventDetailService)

@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.SAVEUP;
+import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDEEM;
 
 
 @Slf4j
@@ -96,8 +96,9 @@ public class AccumulatedPointService {
         return updateAccumulatedPoint(accumulatedPoint);
     }
 
+
     private int calUpdateAmount( ReservesStatus s, int amout, int beforeTotalAmount) {
-        return ( (s == SAVEUP) ? amout : amout*(-1) ) + beforeTotalAmount;
+        return ( (s != REDEEM) ? amout : amout*(-1) ) + beforeTotalAmount;
     }
 
 }

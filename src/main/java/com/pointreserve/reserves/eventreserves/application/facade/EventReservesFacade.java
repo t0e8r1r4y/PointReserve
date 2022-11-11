@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import static com.pointreserve.reserves.eventdetail.ui.dto.EventDetailCreate.EventStatus.STANDBY;
 import static java.lang.Math.abs;
 
 @Slf4j
@@ -41,7 +42,7 @@ public class EventReservesFacade {
         accumulatedPointService.calcPointAndUpdate(saveResult.getMemberId(), saveResult.getAmount(), saveResult.getStatus());
         // 이벤트 발행
         EventDetailCreate eventDetailCreate = new EventDetailCreate(saveResult);
-        eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.STANDBY);
+        eventDetailCreate.updateEventStatus(STANDBY);
         eventDetailCreate.setBeforeHistoryId(null);
         publisher.publish(eventDetailCreate);
 
@@ -50,36 +51,25 @@ public class EventReservesFacade {
                 .build();
     }
 
+    @Transactional
     public EventReservesResponse createCancelEventReserves(EventReservesCancel eventReservesCancel){
-        String beforeEventId = eventReservesCancel.getEventId();
+
         EventReserves eventReserves = eventReservesCancel.toEntity();
-        // 이전 정보 조회
-        EventReservesResponse beforeHistory = eventReservesService.getEventReserves(beforeEventId);
-        // 업데이트 대상 조회
-        AccumulatedPointResponse accumulatedPointResponse = accumulatedPointService.getAccumulatedPoint(eventReserves.getMemberId());
-        // 금액 계산
-        AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
-                .totalAmount( accumulatedPointResponse.getTotalAmount() + abs(beforeHistory.getAmount()) )
-                .build();
-        // 금액 유효성 검사
-        accumulatedPointEdit.isValid();
-        // 업데이트 요청
-//        accumulatedPointService.updateAccumulatedPoint(eventReserves.getMemberId(), accumulatedPointEdit);
-        // 저장
+        // 이벤트 저장
         EventReserves saveResult = eventReservesService.saveEventReserves(eventReserves);
+        // 이전 정보 조회
+        EventReservesResponse beforeHistory = eventReservesService.getEventReserves(eventReservesCancel.getEventId());
+        // 총계 업데이트
+        accumulatedPointService.calcPointAndUpdate(saveResult.getMemberId(), abs(beforeHistory.getAmount()), saveResult.getStatus());
         // 이벤트 발행
         EventDetailCreate eventDetailCreate = new EventDetailCreate(saveResult);
-        eventDetailCreate.setBeforeHistoryId(beforeEventId);
-        eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.STANDBY);
+        eventDetailCreate.setBeforeHistoryId(eventReservesCancel.getEventId());
+        eventDetailCreate.updateEventStatus(STANDBY);
         publisher.publish(eventDetailCreate);
 
         return EventReservesResponse.builder()
                 .eventReserves(saveResult)
                 .build();
-    }
-
-    private int calUpdateAmount(EventReserves e, int beforeTotalAmount) {
-        return ( (e.getStatus() == ReservesStatus.SAVEUP) ? e.getAmount() : e.getAmount()*(-1) ) + beforeTotalAmount;
     }
 
 }
