@@ -2,6 +2,7 @@ package com.pointreserve.reserves.eventreserves.ui.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
+import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRepository;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
 import com.pointreserve.reserves.eventreserves.domain.EventReserves;
 import com.pointreserve.reserves.eventreserves.infra.EventReservesRepository;
@@ -52,12 +53,16 @@ class EventReservesControllerTest {
     @Autowired
     private EventReservesRepository eventReservesRepository;
 
+    @Autowired
+    private AccumulatedPointPointRepository accumulatedPointPointRepository;
+
     @MockBean
     private AccumulatedPointService accumulatedPointService;
 
     @BeforeEach
     void clean() {
         eventReservesRepository.deleteAll();
+        accumulatedPointPointRepository.deleteAll();
     }
 
     @Test
@@ -367,7 +372,7 @@ class EventReservesControllerTest {
         // given
         EventReservesCancel eventReservesCancel = EventReservesCancel.builder()
                 .eventId("e-2")
-                .memberId(1L)
+                .memberId(2L)
                 .reservesStatus(CANCLE_REDEEM)
                 .build();
 
