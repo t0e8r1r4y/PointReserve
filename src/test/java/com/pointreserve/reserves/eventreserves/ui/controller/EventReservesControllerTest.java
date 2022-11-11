@@ -59,6 +59,8 @@ class EventReservesControllerTest {
     @MockBean
     private AccumulatedPointService accumulatedPointService;
 
+    ObjectMapper objectMapper = new ObjectMapper();
+
     @BeforeEach
     void clean() {
         eventReservesRepository.deleteAll();
@@ -77,12 +79,7 @@ class EventReservesControllerTest {
         Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-//            return new AccumulatedPointResponse(1L, 1L, 110);
-//        });
 
-
-        ObjectMapper objectMapper = new ObjectMapper();
         String given = objectMapper.writeValueAsString(eventReservesCreate);
 
         mockMvc.perform(RestDocumentationRequestBuilders.post("/reserves/event/create")
@@ -122,12 +119,7 @@ class EventReservesControllerTest {
         Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-//            return new AccumulatedPointResponse(1L, 1L, 110);
-//        });
 
-
-        ObjectMapper objectMapper = new ObjectMapper();
         String given = objectMapper.writeValueAsString(eventReservesCreate);
 
         mockMvc.perform(RestDocumentationRequestBuilders.post("/reserves/event/create")
@@ -163,12 +155,7 @@ class EventReservesControllerTest {
         Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCreate.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCreate.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-//            return new AccumulatedPointResponse(1L, 1L, 110);
-//        });
 
-
-        ObjectMapper objectMapper = new ObjectMapper();
         String given = objectMapper.writeValueAsString(eventReservesCreate);
 
         mockMvc.perform(RestDocumentationRequestBuilders.post("/reserves/event/create")
@@ -334,11 +321,7 @@ class EventReservesControllerTest {
         Mockito.when( accumulatedPointService.getAccumulatedPoint( eventReservesCancel.getMemberId() ) ).then(invocation -> {
             return new AccumulatedPointResponse(1L, 1L, 100);
         });
-//        Mockito.when( accumulatedPointService.updateAccumulatedPoint(eventReservesCancel.getMemberId(), AccumulatedPointEdit.builder().build()) ).then(invocation -> {
-//            return new AccumulatedPointResponse(1L, 1L, 110);
-//        });
 
-        ObjectMapper objectMapper = new ObjectMapper();
         String given = objectMapper.writeValueAsString(eventReservesCancel);
 
         mockMvc.perform(RestDocumentationRequestBuilders.post("/reserves/event/cancel")
@@ -376,7 +359,6 @@ class EventReservesControllerTest {
                 .reservesStatus(CANCLE_REDEEM)
                 .build();
 
-        ObjectMapper objectMapper = new ObjectMapper();
         String given = objectMapper.writeValueAsString(eventReservesCancel);
 
         mockMvc.perform(RestDocumentationRequestBuilders.post("/reserves/event/cancel")

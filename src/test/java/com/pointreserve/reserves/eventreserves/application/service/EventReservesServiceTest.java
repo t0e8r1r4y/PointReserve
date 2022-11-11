@@ -93,8 +93,4 @@ class EventReservesServiceTest {
         }
     }
 
-    @Test
-    @DisplayName("이벤트 저장 테스트")
-    void saveEventReserves() {
-    }
 }
