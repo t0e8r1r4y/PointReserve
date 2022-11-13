@@ -3,6 +3,7 @@ package com.pointreserve.reserves.accumulationpoint.ui.controller;
 import com.pointreserve.reserves.accumulationpoint.application.service.AccumulatedPointService;
 import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPoint;
 import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRepository;
+import com.pointreserve.reserves.common.bucket.TrafficPlanService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,10 +41,14 @@ class AccumulatedPointControllerTest {
     @Autowired
     private AccumulatedPointPointRepository accumulatedPointPointRepository;
 
+    @Autowired
+    private TrafficPlanService trafficPlanService;
+
+
     @BeforeEach
     void clean(){
         accumulatedPointPointRepository.deleteAll();
-        accumulatedPointService.clearBucket();
+        trafficPlanService.clearCache();
     }
 
     @Test

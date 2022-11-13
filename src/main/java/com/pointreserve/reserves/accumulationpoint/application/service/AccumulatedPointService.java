@@ -8,16 +8,11 @@ import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNot
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
-import com.pointreserve.reserves.common.bucket.TrafficPlan;
 import com.pointreserve.reserves.eventreserves.domain.ReservesStatus;
-import io.github.bucket4j.Bucket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDEEM;
 
@@ -27,23 +22,6 @@ import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDE
 @RequiredArgsConstructor
 public class AccumulatedPointService {
     private final AccumulatedPointPointRepository accumulatedPointPointRepository;
-
-    private final Map<String, Bucket> cache = new ConcurrentHashMap<>();
-
-    public Bucket resolveBucket(String apiKey) {
-        return cache.computeIfAbsent(apiKey, this::newBucket);
-    }
-
-    public void clearBucket(){
-        cache.clear();
-    }
-
-    private Bucket newBucket(String apiKey) {
-        TrafficPlan trafficPlan = TrafficPlan.resolvePlanFromApiKey(apiKey);
-        return Bucket.builder()
-                .addLimit(trafficPlan.getLimit())
-                .build();
-    }
 
     @Transactional
     public AccumulatedPointResponse createAccumulatedPoint(AccumulatedPointCreate accumulatedPointCreate) {
