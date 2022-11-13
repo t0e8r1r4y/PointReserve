@@ -28,23 +28,6 @@ import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDE
 public class AccumulatedPointService {
     private final AccumulatedPointPointRepository accumulatedPointPointRepository;
 
-    private final Map<String, Bucket> cache = new ConcurrentHashMap<>();
-
-    public Bucket resolveBucket(String apiKey) {
-        return cache.computeIfAbsent(apiKey, this::newBucket);
-    }
-
-    public void clearBucket(){
-        cache.clear();
-    }
-
-    private Bucket newBucket(String apiKey) {
-        TrafficPlan trafficPlan = TrafficPlan.resolvePlanFromApiKey(apiKey);
-        return Bucket.builder()
-                .addLimit(trafficPlan.getLimit())
-                .build();
-    }
-
     @Transactional
     public AccumulatedPointResponse createAccumulatedPoint(AccumulatedPointCreate accumulatedPointCreate) {
         if( accumulatedPointPointRepository.getByMemberId(accumulatedPointCreate.getMemberId()).isPresent() ){
