@@ -8,16 +8,11 @@ import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNot
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
-import com.pointreserve.reserves.common.bucket.TrafficPlan;
 import com.pointreserve.reserves.eventreserves.domain.ReservesStatus;
-import io.github.bucket4j.Bucket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDEEM;
 
