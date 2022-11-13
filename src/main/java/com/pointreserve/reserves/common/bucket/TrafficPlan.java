@@ -34,15 +34,7 @@ public enum TrafficPlan {
     public abstract Bandwidth getLimit();
 
     public static TrafficPlan resolvePlanFromApiKey(String apiKey) {
-        if (apiKey == null || apiKey.isEmpty()) {
-            return ONECOUNT;
-        } else if(apiKey.startsWith("THREE-")) {
-            return THREECOUNT;
-        } else if (apiKey.startsWith("FIVE-")) {
-            return FIVECOUNT;
-        } else if (apiKey.startsWith("TEN-")) {
-            return TENCOUNT;
-        }
-        return ONECOUNT;
+        // TODO - IP에 따른 처리율 제한 룰을 정해야 될 듯합니다.
+        return FIVECOUNT;
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -20,9 +22,8 @@ public class AccumulatedPointController {
     private final AccumulatedPointService accumulatedPointService;
 
     @PostMapping("/reserves/create/{memberId}")
-    public ResponseEntity<AccumulatedPointResponse> createAccount(@PathVariable(name = "memberId") Long memberId){
-
-        ConsumptionProbe probe = setProbe("");
+    public ResponseEntity<AccumulatedPointResponse> createAccount(@PathVariable(name = "memberId") Long memberId, HttpServletRequest request){
+        ConsumptionProbe probe = setProbe(request.getRemoteAddr());
 
         probe.getRemainingTokens();
 
@@ -43,9 +44,9 @@ public class AccumulatedPointController {
     }
 
     @GetMapping("/reserves/get/{memberId}")
-    public ResponseEntity<AccumulatedPointResponse> getAccount(@PathVariable Long memberId) {
+    public ResponseEntity<AccumulatedPointResponse> getAccount(@PathVariable Long memberId, HttpServletRequest request) {
 
-        ConsumptionProbe probe = setProbe("five");
+        ConsumptionProbe probe = setProbe(request.getRemoteAddr());
 
         probe.getRemainingTokens();
 
