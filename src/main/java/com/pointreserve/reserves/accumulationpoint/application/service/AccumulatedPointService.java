@@ -23,7 +23,6 @@ import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDE
 public class AccumulatedPointService {
     private final AccumulatedPointPointRepository accumulatedPointPointRepository;
 
-    @Transactional
     public AccumulatedPointResponse createAccumulatedPoint(AccumulatedPointCreate accumulatedPointCreate) {
         if( accumulatedPointPointRepository.getByMemberId(accumulatedPointCreate.getMemberId()).isPresent() ){
             throw new AccumulatedPointConfilctException();
@@ -33,7 +32,6 @@ public class AccumulatedPointService {
                 .build();
     }
 
-    @Transactional
     public AccumulatedPointResponse deleteAccumulatedPoint(Long memberId ) {
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
                 .orElseThrow(AccumulatedPointNotFoundException::new);
@@ -41,7 +39,7 @@ public class AccumulatedPointService {
         return new AccumulatedPointResponse(accumulatedPoint);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public AccumulatedPointResponse getAccumulatedPoint(Long memberId ){
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
                 .orElseThrow(AccumulatedPointNotFoundException::new);
