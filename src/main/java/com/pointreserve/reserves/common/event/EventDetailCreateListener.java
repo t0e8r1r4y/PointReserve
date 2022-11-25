@@ -1,7 +1,6 @@
 package com.pointreserve.reserves.common.event;
 
-import com.pointreserve.reserves.common.event.EventDetailCreateQueue;
-import com.pointreserve.reserves.eventdetail.ui.dto.EventDetailCreate;
+import com.pointreserve.reserves.pointdetail.ui.dto.PointDetailCreate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -15,20 +14,20 @@ public class EventDetailCreateListener {
     private final EventDetailCreateQueue eventDetailCreateQueue;
 
     @EventListener
-    public void onEvent(EventDetailCreate eventDetailCreate){
+    public void onEvent(PointDetailCreate pointDetailCreate){
 
-        if(!eventDetailCreate.isStandby()) {
-            log.info("EventDetail(id:{}) status is not STANDBY!", eventDetailCreate.getMembershipId());
+        if(!pointDetailCreate.isStandby()) {
+            log.info("EventDetail(id:{}) status is not STANDBY!", pointDetailCreate.getMembershipId());
             return;
         }
 
         while (eventDetailCreateQueue.isFull()) {
-            if(!eventDetailCreate.isQueueWait()){
-                eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.QUEUE_WAIT);
+            if(!pointDetailCreate.isQueueWait()){
+                pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.QUEUE_WAIT);
             }
         }
 
-        eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.QUEUE);
-        eventDetailCreateQueue.offer(eventDetailCreate);
+        pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.QUEUE);
+        eventDetailCreateQueue.offer(pointDetailCreate);
     }
 }

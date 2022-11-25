@@ -4,9 +4,9 @@ import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointCon
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointInvalidRequestException;
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointErrorResponse;
-import com.pointreserve.reserves.eventdetail.exception.EventDetailNotFoundException;
-import com.pointreserve.reserves.eventreserves.exception.EventReserveInvalideRequestException;
-import com.pointreserve.reserves.eventreserves.exception.EventReservesNotFoundException;
+import com.pointreserve.reserves.pointdetail.exception.PointDetailNotFoundException;
+import com.pointreserve.reserves.point.exception.PointInvalideRequestException;
+import com.pointreserve.reserves.point.exception.PointNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,8 +33,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(EventReservesNotFoundException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventReservesNotFoundException e){
+    @ExceptionHandler(PointNotFoundException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (PointNotFoundException e){
 
         int statusCode = e.statusCode();
 
@@ -50,8 +50,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(EventReserveInvalideRequestException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventReserveInvalideRequestException e){
+    @ExceptionHandler(PointInvalideRequestException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (PointInvalideRequestException e){
 
         int statusCode = e.statusCode();
 
@@ -67,8 +67,8 @@ public class ExceptionController {
     }
 
     @ResponseBody
-    @ExceptionHandler(EventDetailNotFoundException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (EventDetailNotFoundException e){
+    @ExceptionHandler(PointDetailNotFoundException.class)
+    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (PointDetailNotFoundException e){
 
         int statusCode = e.statusCode();
 

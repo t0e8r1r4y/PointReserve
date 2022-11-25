@@ -1,8 +1,7 @@
 package com.pointreserve.reserves.common.event;
 
-import com.pointreserve.reserves.common.event.EventDetailCreateQueue;
-import com.pointreserve.reserves.eventdetail.application.service.EventDetailService;
-import com.pointreserve.reserves.eventdetail.ui.dto.EventDetailCreate;
+import com.pointreserve.reserves.pointdetail.application.service.PointDetailService;
+import com.pointreserve.reserves.pointdetail.ui.dto.PointDetailCreate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,37 +10,37 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EventDetailCreateWorker implements Runnable{
     private final EventDetailCreateQueue eventQueue;
-    private final EventDetailService eventDetailService;
+    private final PointDetailService pointDetailService;
 
     @Override
     @Transactional
     public void run() {
         if(eventQueue.isRemaining()){
-            EventDetailCreate eventDetailCreate = eventQueue.poll();
+            PointDetailCreate pointDetailCreate = eventQueue.poll();
 
             try{
-                eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.PROGRESS);
+                pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.PROGRESS);
 
-                switch (eventDetailCreate.getStatus()){
+                switch (pointDetailCreate.getStatus()){
                     case SAVEUP: {
-                        eventDetailService.saveUpReserves(eventDetailCreate);
+                        pointDetailService.saveUpReserves(pointDetailCreate);
                         break;
                     }
                     case REDEEM: {
-                        eventDetailService.redeemReserves(eventDetailCreate);
+                        pointDetailService.redeemReserves(pointDetailCreate);
                         break;
                     }
                     case CANCLE_REDEEM: {
-                        eventDetailService.cancelRedeemedBefore( eventDetailCreate.getBeforeHistoryId(), eventDetailCreate);
+                        pointDetailService.cancelRedeemedBefore( pointDetailCreate.getBeforeHistoryId(), pointDetailCreate);
                         break;
                     }
                     default:
                         break;
                 }
 
-                eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.SUCCESS);
+                pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.SUCCESS);
             } catch (Exception e) {
-                eventDetailCreate.updateEventStatus(EventDetailCreate.EventStatus.FAILURE);
+                pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.FAILURE);
             }
 
         }

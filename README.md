@@ -450,7 +450,7 @@
 <h4 id="_요청_4">요청</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ echo '{"memberId":1,"amount":10,"reservesStatus":"REDEEM"}' | http POST 'https://api.PointReserve.com/reserves/event/create' \
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ echo '{"memberId":1,"amount":10,"pointStatus":"REDEEM"}' | http POST 'https://api.PointReserve.com/reserves/event/create' \
     'Content-Type:application/json;charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -479,7 +479,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">적립 금액 혹은 사용 금액입니다.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservesStatus</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pointStatus</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">적립, 사용 상태를 나타냅니다.</p></td>
 </tr>
@@ -637,7 +637,7 @@
 <h4 id="_요청_5">요청</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ echo '{"memberId":1,"eventId":"e-2","reservesStatus":"CANCLE_REDEEM"}' | http POST 'https://api.PointReserve.com/reserves/event/cancel' \
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ echo '{"memberId":1,"eventId":"e-2","pointStatus":"CANCLE_REDEEM"}' | http POST 'https://api.PointReserve.com/reserves/event/cancel' \
     'Content-Type:application/json;charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -666,7 +666,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">적립 사용을 취소할 ID입니다.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservesStatus</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pointStatus</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">사용 취소 상태를 나타냅니다.</p></td>
 </tr>

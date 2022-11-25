@@ -1,8 +1,6 @@
 package com.pointreserve.reserves.common.event;
 
-import com.pointreserve.reserves.common.event.EventDetailCreateQueue;
-import com.pointreserve.reserves.common.event.EventDetailCreateWorker;
-import com.pointreserve.reserves.eventdetail.application.service.EventDetailService;
+import com.pointreserve.reserves.pointdetail.application.service.PointDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,11 +9,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TransactionEventScheduler {
     private final EventDetailCreateQueue eventQueue;
-    private final EventDetailService eventDetailService;
+    private final PointDetailService pointDetailService;
 
     @Scheduled(fixedRate = 100)
     public void schedule() {
-        new EventDetailCreateWorker(eventQueue, eventDetailService)
+        new EventDetailCreateWorker(eventQueue, pointDetailService)
                 .run();
     }
 }

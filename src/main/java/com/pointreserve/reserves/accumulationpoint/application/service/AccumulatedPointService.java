@@ -8,13 +8,13 @@ import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNot
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointEdit;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
-import com.pointreserve.reserves.eventreserves.domain.ReservesStatus;
+import com.pointreserve.reserves.point.domain.PointStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDEEM;
+import static com.pointreserve.reserves.point.domain.PointStatus.REDEEM;
 
 
 @Slf4j
@@ -54,7 +54,7 @@ public class AccumulatedPointService {
 
 
     @Transactional
-    public AccumulatedPointResponse calcPointAndUpdate(Long memberId, int amount, ReservesStatus s){
+    public AccumulatedPointResponse calcPointAndUpdate(Long memberId, int amount, PointStatus s){
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.findByMemberId(memberId)
                 .orElseThrow(AccumulatedPointNotFoundException::new);
 
@@ -73,7 +73,7 @@ public class AccumulatedPointService {
     }
 
 
-    private int calUpdateAmount( ReservesStatus s, int amout, int beforeTotalAmount) {
+    private int calUpdateAmount(PointStatus s, int amout, int beforeTotalAmount) {
         return ( (s != REDEEM) ? amout : amout*(-1) ) + beforeTotalAmount;
     }
 
