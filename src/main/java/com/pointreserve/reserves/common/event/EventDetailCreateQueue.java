@@ -1,6 +1,6 @@
 package com.pointreserve.reserves.common.event;
 
-import com.pointreserve.reserves.eventdetail.ui.dto.EventDetailCreate;
+import com.pointreserve.reserves.pointdetail.ui.dto.PointDetailCreate;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Queue;
@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 @Slf4j
 public class EventDetailCreateQueue {
-    private final Queue<EventDetailCreate> queue;
+    private final Queue<PointDetailCreate> queue;
     private final int queueSize;
 
     public EventDetailCreateQueue(int queueSize) {
@@ -20,20 +20,20 @@ public class EventDetailCreateQueue {
         return new EventDetailCreateQueue(size);
     }
 
-    public boolean offer(EventDetailCreate eventDetailCreate) {
-        boolean returnValue = queue.offer(eventDetailCreate);
+    public boolean offer(PointDetailCreate pointDetailCreate) {
+        boolean returnValue = queue.offer(pointDetailCreate);
         healthCheck();
         return returnValue;
     }
 
-    public EventDetailCreate poll(){
+    public PointDetailCreate poll(){
         if(queue.size() <= 0) {
             throw new IllegalArgumentException("이벤트 큐에 이벤트 없음");
         }
 
-        EventDetailCreate eventDetailCreate = queue.poll();
+        PointDetailCreate pointDetailCreate = queue.poll();
         healthCheck();
-        return eventDetailCreate;
+        return pointDetailCreate;
     }
 
     private int size(){

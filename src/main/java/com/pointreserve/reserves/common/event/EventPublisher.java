@@ -1,6 +1,6 @@
 package com.pointreserve.reserves.common.event;
 
-import com.pointreserve.reserves.eventdetail.ui.dto.EventDetailCreate;
+import com.pointreserve.reserves.pointdetail.ui.dto.PointDetailCreate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 public class EventPublisher {
     private final ApplicationEventPublisher publisher;
 
-    public void publish(EventDetailCreate eventDetailCreate)
+    public void publish(PointDetailCreate pointDetailCreate)
     {
-        publisher.publishEvent(eventDetailCreate);
+        publisher.publishEvent(pointDetailCreate);
 
         return;
     }

@@ -7,7 +7,7 @@ import com.pointreserve.reserves.accumulationpoint.infra.AccumulatedPointPointRe
 import com.pointreserve.reserves.accumulationpoint.exception.AccumulatedPointNotFoundException;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointCreate;
 import com.pointreserve.reserves.accumulationpoint.ui.dto.AccumulatedPointResponse;
-import com.pointreserve.reserves.eventreserves.domain.ReservesStatus;
+import com.pointreserve.reserves.point.domain.PointStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,8 +21,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.REDEEM;
-import static com.pointreserve.reserves.eventreserves.domain.ReservesStatus.SAVEUP;
+import static com.pointreserve.reserves.point.domain.PointStatus.REDEEM;
+import static com.pointreserve.reserves.point.domain.PointStatus.SAVEUP;
 
 @SpringBootTest
 @ActiveProfiles("local")
@@ -112,7 +112,7 @@ class AccumulatedPointServiceTest {
         // given
         Long givenId = 1L;
         int amount = 100;
-        ReservesStatus s = SAVEUP;
+        PointStatus s = SAVEUP;
         AccumulatedPoint given = factory.createAccumulatedPoint(givenId, 500);
         accumulatedPointPointRepository.save(given);
 
@@ -130,7 +130,7 @@ class AccumulatedPointServiceTest {
         // given
         Long givenId = 1L;
         int amount = 100;
-        ReservesStatus s = REDEEM;
+        PointStatus s = REDEEM;
         AccumulatedPoint given = factory.createAccumulatedPoint(givenId, 500);
         accumulatedPointPointRepository.save(given);
 
@@ -148,7 +148,7 @@ class AccumulatedPointServiceTest {
         // given
         Long givenId = 1L;
         int amount = 100;
-        ReservesStatus s = SAVEUP;
+        PointStatus s = SAVEUP;
         AccumulatedPoint given = factory.createAccumulatedPoint(givenId, 500);
         accumulatedPointPointRepository.save(given);
 
@@ -166,7 +166,7 @@ class AccumulatedPointServiceTest {
         // given
         Long givenId = 1L;
         int amount = 10;
-        ReservesStatus s = REDEEM;
+        PointStatus s = REDEEM;
         AccumulatedPoint given = factory.createAccumulatedPoint(givenId, 0);
         accumulatedPointPointRepository.save(given);
 
