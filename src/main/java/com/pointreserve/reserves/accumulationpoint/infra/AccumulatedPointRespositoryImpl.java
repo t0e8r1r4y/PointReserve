@@ -20,7 +20,6 @@ public class AccumulatedPointRespositoryImpl implements AccountRepositoryCustom 
     public Optional<AccumulatedPoint> getByMemberId(Long memberId) {
         return Optional.of(Objects.requireNonNull(jpaQueryFactory.selectFrom(accumulatedPoint)
                 .where(accumulatedPoint.memberId.eq(memberId))
-                .setLockMode(LockModeType.PESSIMISTIC_WRITE)
                 .fetchOne()));
     }
 }
