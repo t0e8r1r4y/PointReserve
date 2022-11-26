@@ -8,7 +8,7 @@
 
 
 ## 사용 기술 스택
-- java11, QueryDsl, Junit5, SpringBoot, Spring RestDoc, h2, mysql
+- java11, QueryDsl, Junit5, SpringBoot 2.6.13, Spring Rest Docs, h2, MySQL 8.0.31
 
 ## 설계내용
 - 개발내용을 [WIKI](https://github.com/t0e8r1r4y/PointReserve/wiki)에 정리하였습니다.
