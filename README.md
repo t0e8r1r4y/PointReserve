@@ -21,13 +21,27 @@
 #### 실행
 
 
+<img width="409" alt="스크린샷 2022-11-26 오후 5 26 24" src="https://user-images.githubusercontent.com/91730236/204082058-1123c088-d236-4927-8cb3-a8711ebdde21.png">
+
+
+<img width="165" alt="스크린샷 2022-11-26 오후 5 26 37" src="https://user-images.githubusercontent.com/91730236/204082081-c55a8b50-8afd-4ceb-9c0c-66f7b8244757.png">
+
+
+<img width="900" alt="스크린샷 2022-11-26 오후 5 27 12" src="https://user-images.githubusercontent.com/91730236/204082089-f18e52ce-8461-492b-be63-5b84ccb22670.png">
+
+
 <br/>
 
 ## 주요 기능 & 구현 의도
 
 #### ERD 설계
 
-#### 단위 테스트 & LargeTest 구현
+<img width="534" alt="스크린샷 2022-11-26 오후 5 05 19" src="https://user-images.githubusercontent.com/91730236/204082038-4469e965-182f-4b79-b134-884e61935686.png">
+
+#### 단위 테스트
+
+<img width="924" alt="스크린샷 2022-11-26 오후 6 27 07" src="https://user-images.githubusercontent.com/91730236/204082097-8a60951c-bbd3-43dd-ae33-96261ca48ef4.png">
+
 
 #### 설계에 대한 생각
 
