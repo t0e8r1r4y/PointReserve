@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Entity
-@Table(name = "EVENT_DETAIL")
+@Table(name = "POINT_DETAIL")
 public class PointDetail {
 
     @Id
