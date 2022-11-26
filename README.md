@@ -8,7 +8,11 @@
 
 
 ## 사용 기술 스택
-- java11, QueryDsl, Junit5, SpringBoot 2.6.13, Spring Rest Docs, h2, MySQL 8.0.31
+- java11, QueryDsl, JUnit5, SpringBoot 2.6.13, Spring Rest Docs, h2, MySQL 8.0.31
+
+
+<br/>
+
 
 ## 설계내용
 - 개발내용을 [WIKI](https://github.com/t0e8r1r4y/PointReserve/wiki)에 정리하였습니다.
@@ -21,3 +25,35 @@
     - 동시성 처리를 위한 트랜잭션 고려사항
     - 처리율 제한 관련 구현
     - 추가적인 리팩터링을 고려한 보완사항
+
+
+<br/>
+
+
+## 실행 방법
+
+
+<br/>
+
+## 주요 기능 & 구현 의도
+
+#### ERD 설계
+
+
+#### 단위 테스트 & LargeTest 구현
+
+#### 설계에 대한 생각
+
+
+#### 지속 가능한 개발에 대한 생각
+
+
+<br/>
+
+
+## 다음 프로젝트에 개선을 고려해볼 점
+
+#### 에러 처리
+
+#### API에 대한 생각
+
