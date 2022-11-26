@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
@@ -71,6 +72,7 @@ class AccumulatedPointServiceTest {
 
     @Test
     @DisplayName("적립금 계정 삭제 실패 서비스 테스트")
+//    @Transactional
     void deleteAccountFailTest() {
         //then
         Assertions.assertThrows( AccumulatedPointNotFoundException.class, () -> {
@@ -196,7 +198,6 @@ class AccumulatedPointServiceTest {
         Assertions.assertEquals(result.getTotalAmount(), 800);
     }
 
-
     @Test
     @DisplayName("포인트 적립 업데이트 동시성 테스트")
     void updateAccountConcurrency() throws InterruptedException {
@@ -209,11 +210,11 @@ class AccumulatedPointServiceTest {
         // when
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
-               try {
+                try {
                     accumulatedPointService.calcPointAndUpdate(1L, 10, SAVEUP);
-               } finally {
-                   latch.countDown();
-               }
+                } finally {
+                    latch.countDown();
+                }
             });
         }
 
@@ -224,6 +225,7 @@ class AccumulatedPointServiceTest {
         System.out.println(response.get().getTotalAmount());
         Assertions.assertEquals(2000, response.get().getTotalAmount());
     }
+
 
     @Test
     @DisplayName("포인트 사용 업데이트 동시성 테스트")
