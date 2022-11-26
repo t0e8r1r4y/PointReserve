@@ -8,7 +8,8 @@
 
 
 ## 사용 기술 스택
-- java11, QueryDsl, JUnit5, SpringBoot 2.6.13, Spring Rest Docs, h2, MySQL 8.0.31
+- Java11, QueryDsl, JUnit5, SpringBoot 2.6.13, Spring Rest Docs, h2, MySQL 8.0.31
+- 기타 : Postman, DBeaver
 
 
 <br/>
