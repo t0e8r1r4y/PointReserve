@@ -9,7 +9,7 @@
 
 ## 사용 기술 스택
 - Java11, QueryDsl, JUnit5, SpringBoot 2.6.13, Spring Rest Docs, h2, MySQL 8.0.31
-- 기타 : Postman, DBeaver
+- 기타 : Postman, DBeaver, Docker
 
 
 <br/>
@@ -18,13 +18,26 @@
 - 해당 프로젝트를 cloning 후 실행하면 Default 옵션으로 h2로 실행합니다.
 - Dev 환경에서 MySQL Replication 구성까지 포함하여 사용하였는데, docker-compose.yml 파일은 추가하지 않았습니다. 관련 설정 구성은 [블로그](https://terrys-tech-log.tistory.com/11)에 기록하였습니다.
 
-#### h2 실행
+#### with h2 실행
+
+- 프로젝트를 다운 받은 경로에서 아래 명령어를 실행합니다.
+```Shell
+./gradlew build && java -jar -Dspring.profiles.active=local ./build/libs/PointReserve-0.0.2-SNAPSHOT.jar
+
+```
+
+
+- 별도의 front page는 없습니다. 아래 화면처럼 h2 db가 뜨면 정상힙니다.
 
 <img width="512" alt="스크린샷 2022-11-26 오후 5 26 24" src="https://user-images.githubusercontent.com/91730236/204082058-1123c088-d236-4927-8cb3-a8711ebdde21.png">
 
 
+- 아래 3개 테이블이 생성되어야 합니다.
+
 <img width="165" alt="스크린샷 2022-11-26 오후 5 26 37" src="https://user-images.githubusercontent.com/91730236/204082081-c55a8b50-8afd-4ceb-9c0c-66f7b8244757.png">
 
+
+- API 문서에 따라 PostMan으로 테스트하면 됩니다. 프로젝트 실행 후 `http://localhost:8000/docs/index.html` 에서 API 확인.
 
 <img width="512" alt="스크린샷 2022-11-26 오후 5 27 12" src="https://user-images.githubusercontent.com/91730236/204082089-f18e52ce-8461-492b-be63-5b84ccb22670.png">
 
