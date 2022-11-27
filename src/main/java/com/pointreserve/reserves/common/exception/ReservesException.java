@@ -8,17 +8,17 @@ import java.util.Map;
 public abstract class ReservesException extends RuntimeException{
     private final Map<String, String> validation = new HashMap<>();
 
-    public ReservesException(String message) {
+    protected ReservesException(String message) {
         super(message);
     }
 
-    public ReservesException(String message, Throwable cause) {
+    protected ReservesException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public abstract int statusCode();
+    protected abstract int statusCode();
 
-    public void addValidation(String fieldName, String message) {
+    protected void addValidation(String fieldName, String message) {
         validation.put(fieldName, message);
     }
 }
