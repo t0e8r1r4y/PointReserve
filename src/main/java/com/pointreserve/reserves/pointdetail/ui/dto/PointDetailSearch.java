@@ -11,20 +11,20 @@ import static java.lang.Math.min;
 @Setter
 public class PointDetailSearch {
 
-    private static final int MAX_SIZE = 1000;
-    private int page;
-    private int size;
+  private static final int MAX_SIZE = 1000;
+  private int page;
+  private int size;
 
-    private Long memberId;
+  private Long memberId;
 
-    @Builder
-    public PointDetailSearch(int page, int size, Long memberId) {
-        this.page = page;
-        this.size = size;
-        this.memberId = memberId;
-    }
+  @Builder
+  public PointDetailSearch(int page, int size, Long memberId) {
+    this.page = page;
+    this.size = size;
+    this.memberId = memberId;
+  }
 
-    public long getOffset(){
-        return (long)(max(1,page)-1) * min(size,MAX_SIZE);
-    }
+  public long getOffset() {
+    return (long) (max(1, page) - 1) * min(size, MAX_SIZE);
+  }
 }

@@ -10,26 +10,26 @@ import java.time.LocalDateTime;
 @Getter
 public class PointDetailResponse {
 
-    private final String id;
-    private final Long membershipId;
-    private final PointStatus status;
-    private final int amount;
-    private final String eventId;
-    private final String signUpId;
-    private final String cancelId;
-    private final LocalDateTime effectiveData;
-    private final LocalDateTime expiryDate;
+  private final String id;
+  private final Long membershipId;
+  private final PointStatus status;
+  private final int amount;
+  private final String eventId;
+  private final String signUpId;
+  private final String cancelId;
+  private final LocalDateTime effectiveData;
+  private final LocalDateTime expiryDate;
 
-    @Builder
-    public PointDetailResponse(PointDetail pointDetail) {
-        this.id = pointDetail.getId();
-        this.membershipId = pointDetail.getMembershipId();
-        this.status = pointDetail.getStatus();
-        this.amount = pointDetail.getAmount();
-        this.eventId = pointDetail.getEventId();
-        this.signUpId = pointDetail.getSignUpId();
-        this.cancelId = pointDetail.getCancelId();
-        this.effectiveData = pointDetail.getEffectiveData();
-        this.expiryDate = pointDetail.getExpiryDate();
-    }
+  @Builder
+  public PointDetailResponse(PointDetail pointDetail) {
+    this.id = pointDetail.getId();
+    this.membershipId = pointDetail.getMembershipId();
+    this.status = pointDetail.getStatus();
+    this.amount = pointDetail.getAmount();
+    this.eventId = pointDetail.getEventId();
+    this.signUpId = pointDetail.getSignUpId();
+    this.cancelId = pointDetail.getCancelId();
+    this.effectiveData = pointDetail.getEffectiveData();
+    this.expiryDate = pointDetail.getExpiryDate();
+  }
 }

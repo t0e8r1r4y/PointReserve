@@ -10,10 +10,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class ReservesApplication {
 
-	public static void main(String[] args) {
-		System.setProperty("spring.profiles.default", "local");
-		SpringApplication.run(
-				ReservesApplication.class, args);
-	}
+  public static void main(String[] args) {
+    System.setProperty("spring.profiles.default", "local");
+    SpringApplication.run(
+        ReservesApplication.class, args);
+  }
 
 }

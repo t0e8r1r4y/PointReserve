@@ -16,10 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PointDetailController {
 
-    private final PointDetailService pointDetailService;
+  private final PointDetailService pointDetailService;
 
-    @GetMapping("/reserves/eventsDetail/getList")
-    public List<PointDetailResponse> getEventList(@ModelAttribute PointDetailSearch params){
-        return pointDetailService.getEventDetailList(params);
-    }
+  @GetMapping("/reserves/eventsDetail/getList")
+  public List<PointDetailResponse> getEventList(@ModelAttribute PointDetailSearch params) {
+    return pointDetailService.getEventDetailList(params);
+  }
 }
