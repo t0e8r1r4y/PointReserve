@@ -1,21 +1,25 @@
-#spring:
-#  profiles:
-#    active: local
-#
-#  datasource:
-#    url: jdbc:h2:mem:testdb
-#    driverClassName: org.h2.Driver
-#    username: sa
-#    password:
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: create-drop
-#  h2:
-#    console:
-#      enabled: true
-#  devtools:
-#    livereload:
-#      enabled: true
-#    restart:
-#      enabled: true
+server:
+  port: 8000
+
+spring:
+  config:
+    activate:
+      on-profile: "local"
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true

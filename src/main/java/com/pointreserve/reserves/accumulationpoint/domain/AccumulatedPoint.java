@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "ACCOUNT")
+@Table(name = "ACCUMULATEDPOINT")
 public class AccumulatedPoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class AccumulatedPoint {
     }
 
 
-    public AccumulatedPointEditorBuilder toEditor(){
+    public AccumulatedPointEditorBuilder toEditorBuilder(){
         return AccumulatedPointEditor.builder().totalAmount(totalAmount);
     }
 

@@ -23,8 +23,8 @@ public class PointService {
     private final PointRepository pointRepository;
 
     @Transactional
-    public Point saveEventReserves(Point e) {
-        return pointRepository.save(e);
+    public Point saveEventReserves(Point event) {
+        return pointRepository.save(event);
     }
 
 

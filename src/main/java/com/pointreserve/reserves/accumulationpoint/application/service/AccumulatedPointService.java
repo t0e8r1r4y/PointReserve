@@ -32,6 +32,7 @@ public class AccumulatedPointService {
                 .build();
     }
 
+    // 실무라면 soft delete를 적용하겠지만, 여기서는 삭제를 합니다.
     public AccumulatedPointResponse deleteAccumulatedPoint(Long memberId ) {
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
                 .orElseThrow(AccumulatedPointNotFoundException::new);
@@ -54,17 +55,17 @@ public class AccumulatedPointService {
 
 
     @Transactional
-    public AccumulatedPointResponse calcPointAndUpdate(Long memberId, int amount, PointStatus s){
+    public AccumulatedPointResponse calcPointAndUpdate(Long memberId, int amount, PointStatus pointStatus){
         AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.findByMemberId(memberId)
                 .orElseThrow(AccumulatedPointNotFoundException::new);
 
         AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
-                .totalAmount(calUpdateAmount( s, amount, accumulatedPoint.getTotalAmount() ))
+                .totalAmount(calUpdateAmount( pointStatus, amount, accumulatedPoint.getTotalAmount() ))
                 .build();
 
-        accumulatedPointEdit.isValid();
+        accumulatedPointEdit.validate();
 
-        AccumulatedPointEditor.AccumulatedPointEditorBuilder amountEditorBuilder = accumulatedPoint.toEditor();
+        AccumulatedPointEditor.AccumulatedPointEditorBuilder amountEditorBuilder = accumulatedPoint.toEditorBuilder();
         AccumulatedPointEditor accumulatedPointEditor = amountEditorBuilder.totalAmount(accumulatedPointEdit.getTotalAmount()).build();
 
         accumulatedPoint.edit(accumulatedPointEditor);

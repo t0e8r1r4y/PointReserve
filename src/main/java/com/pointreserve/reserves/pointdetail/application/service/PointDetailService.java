@@ -41,8 +41,8 @@ public class PointDetailService {
 
 
     @Transactional
-    public String saveUpReserves( PointDetailCreate e ) {
-        PointDetail response = pointDetailRepository.save(e.toEntity());
+    public String saveUpReserves( PointDetailCreate detailCreate ) {
+        PointDetail response = pointDetailRepository.save(detailCreate.toEntity());
         PointDetailResponse pointDetailResponse = new PointDetailResponse(response);
         return pointDetailResponse.getId();
     }
