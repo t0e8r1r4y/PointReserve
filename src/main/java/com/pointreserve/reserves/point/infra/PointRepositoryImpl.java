@@ -11,15 +11,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PointRepositoryImpl implements PointRepositoryCustom {
 
-    private final JPAQueryFactory jpaQueryFactory;
+  private final JPAQueryFactory jpaQueryFactory;
 
-    @Override
-    public List<Point> getList(PointSearch pointSearch) {
-        return jpaQueryFactory.selectFrom(QPoint.point)
-                .where(QPoint.point.memberId.eq(pointSearch.getMemberId()))
-                .limit(pointSearch.getSize())
-                .offset(pointSearch.getOffset())
-                .orderBy(QPoint.point.effectiveData.asc())
-                .fetch();
-    }
+  @Override
+  public List<Point> getList(PointSearch pointSearch) {
+    return jpaQueryFactory.selectFrom(QPoint.point)
+        .where(QPoint.point.memberId.eq(pointSearch.getMemberId()))
+        .limit(pointSearch.getSize())
+        .offset(pointSearch.getOffset())
+        .orderBy(QPoint.point.effectiveData.asc())
+        .fetch();
+  }
 }
