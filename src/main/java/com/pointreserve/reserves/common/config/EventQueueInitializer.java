@@ -6,8 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class EventQueueInitializer {
-    @Bean
-    public EventDetailCreateQueue eventDetailCreateQueue(){
-        return EventDetailCreateQueue.of(1_000);
-    }
+
+  @Bean
+  public EventDetailCreateQueue eventDetailCreateQueue() {
+    return EventDetailCreateQueue.of(1_000);
+  }
 }

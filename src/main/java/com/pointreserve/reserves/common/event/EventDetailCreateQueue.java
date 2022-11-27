@@ -8,47 +8,48 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 @Slf4j
 public class EventDetailCreateQueue {
-    private final Queue<PointDetailCreate> queue;
-    private final int queueSize;
 
-    public EventDetailCreateQueue(int queueSize) {
-        this.queue = new LinkedBlockingQueue<>(queueSize);
-        this.queueSize = queueSize;
+  private final Queue<PointDetailCreate> queue;
+  private final int queueSize;
+
+  public EventDetailCreateQueue(int queueSize) {
+    this.queue = new LinkedBlockingQueue<>(queueSize);
+    this.queueSize = queueSize;
+  }
+
+  public static EventDetailCreateQueue of(int size) {
+    return new EventDetailCreateQueue(size);
+  }
+
+  public boolean offer(PointDetailCreate pointDetailCreate) {
+    boolean returnValue = queue.offer(pointDetailCreate);
+    healthCheck();
+    return returnValue;
+  }
+
+  public PointDetailCreate poll() {
+    if (queue.isEmpty()) {
+      throw new IllegalArgumentException("이벤트 큐에 이벤트 없음");
     }
 
-    public static EventDetailCreateQueue of(int size){
-        return new EventDetailCreateQueue(size);
-    }
+    PointDetailCreate pointDetailCreate = queue.poll();
+    healthCheck();
+    return pointDetailCreate;
+  }
 
-    public boolean offer(PointDetailCreate pointDetailCreate) {
-        boolean returnValue = queue.offer(pointDetailCreate);
-        healthCheck();
-        return returnValue;
-    }
+  private int size() {
+    return queue.size();
+  }
 
-    public PointDetailCreate poll(){
-        if(queue.isEmpty()) {
-            throw new IllegalArgumentException("이벤트 큐에 이벤트 없음");
-        }
+  public boolean isFull() {
+    return size() == queueSize;
+  }
 
-        PointDetailCreate pointDetailCreate = queue.poll();
-        healthCheck();
-        return pointDetailCreate;
-    }
+  public boolean isRemaining() {
+    return size() > 0;
+  }
 
-    private int size(){
-        return queue.size();
-    }
-
-    public boolean isFull(){
-        return size() == queueSize;
-    }
-
-    public boolean isRemaining(){
-        return size() > 0;
-    }
-
-    private void healthCheck(){
-        log.info("{\"totalQueueSize\":{}, \"currentQueueSize\":{}}", queueSize, size());
-    }
+  private void healthCheck() {
+    log.info("{\"totalQueueSize\":{}, \"currentQueueSize\":{}}", queueSize, size());
+  }
 }

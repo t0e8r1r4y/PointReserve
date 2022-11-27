@@ -11,32 +11,33 @@ import java.io.Serializable;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-public class CustomIdGenerator implements IdentifierGenerator{
-    private String prefix;
+public class CustomIdGenerator implements IdentifierGenerator {
 
-    @Override
-    public Serializable generate(
-            SharedSessionContractImplementor session, Object obj)
-            throws HibernateException {
+  private String prefix;
 
-        String query = String.format("select %s from %s",
-                session.getEntityPersister(obj.getClass().getName(), obj)
-                        .getIdentifierPropertyName(),
-                obj.getClass().getSimpleName());
+  @Override
+  public Serializable generate(
+      SharedSessionContractImplementor session, Object obj)
+      throws HibernateException {
 
-        Stream<String> ids = session.createQuery(query).stream();
+    String query = String.format("select %s from %s",
+        session.getEntityPersister(obj.getClass().getName(), obj)
+            .getIdentifierPropertyName(),
+        obj.getClass().getSimpleName());
 
-        Long max = ids.map(o -> o.replace(prefix + "-", "" ))
-                .mapToLong(Long::parseLong)
-                .max()
-                .orElse(0L);
+    Stream<String> ids = session.createQuery(query).stream();
 
-        return prefix + "-" + (max+1);
-    }
+    Long max = ids.map(o -> o.replace(prefix + "-", ""))
+        .mapToLong(Long::parseLong)
+        .max()
+        .orElse(0L);
 
-    @Override
-    public void configure(Type type, Properties properties,
-                          ServiceRegistry serviceRegistry) throws MappingException {
-        prefix = properties.getProperty("prefix");
-    }
+    return prefix + "-" + (max + 1);
+  }
+
+  @Override
+  public void configure(Type type, Properties properties,
+      ServiceRegistry serviceRegistry) throws MappingException {
+    prefix = properties.getProperty("prefix");
+  }
 }

@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class TransactionEventScheduler {
-    private final EventDetailCreateQueue eventQueue;
-    private final PointDetailService pointDetailService;
 
-    @Scheduled(fixedRate = 100)
-    public void schedule() {
-        new EventDetailCreateWorker(eventQueue, pointDetailService)
-                .run();
-    }
+  private final EventDetailCreateQueue eventQueue;
+  private final PointDetailService pointDetailService;
+
+  @Scheduled(fixedRate = 100)
+  public void schedule() {
+    new EventDetailCreateWorker(eventQueue, pointDetailService)
+        .run();
+  }
 }
