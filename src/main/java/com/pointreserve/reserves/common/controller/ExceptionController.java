@@ -15,105 +15,104 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class ExceptionController {
 
-    @ResponseBody
-    @ExceptionHandler(AccumulatedPointNotFoundException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccumulatedPointNotFoundException e){
+  @ResponseBody
+  @ExceptionHandler(AccumulatedPointNotFoundException.class)
+  public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse(
+      AccumulatedPointNotFoundException e) {
 
-        int statusCode = e.statusCode();
+    int statusCode = e.statusCode();
 
-        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
-                .code(String.valueOf(statusCode))
-                .message(e.getMessage())
-                .validation(e.getValidation())
-                .build();
+    AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
+        .code(String.valueOf(statusCode))
+        .message(e.getMessage())
+        .validation(e.getValidation())
+        .build();
 
+    return ResponseEntity.status(statusCode)
+        .body(body);
+  }
 
-        return ResponseEntity.status(statusCode)
-                .body(body);
-    }
+  @ResponseBody
+  @ExceptionHandler(PointNotFoundException.class)
+  public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse(PointNotFoundException e) {
 
-    @ResponseBody
-    @ExceptionHandler(PointNotFoundException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (PointNotFoundException e){
+    int statusCode = e.statusCode();
 
-        int statusCode = e.statusCode();
+    AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
+        .code(String.valueOf(statusCode))
+        .message(e.getMessage())
+        .validation(e.getValidation())
+        .build();
 
-        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
-                .code(String.valueOf(statusCode))
-                .message(e.getMessage())
-                .validation(e.getValidation())
-                .build();
+    return ResponseEntity.status(statusCode)
+        .body(body);
+  }
 
+  @ResponseBody
+  @ExceptionHandler(PointInvalideRequestException.class)
+  public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse(
+      PointInvalideRequestException e) {
 
-        return ResponseEntity.status(statusCode)
-                .body(body);
-    }
+    int statusCode = e.statusCode();
 
-    @ResponseBody
-    @ExceptionHandler(PointInvalideRequestException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (PointInvalideRequestException e){
+    AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
+        .code(String.valueOf(statusCode))
+        .message(e.getMessage())
+        .validation(e.getValidation())
+        .build();
 
-        int statusCode = e.statusCode();
+    return ResponseEntity.status(statusCode)
+        .body(body);
+  }
 
-        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
-                .code(String.valueOf(statusCode))
-                .message(e.getMessage())
-                .validation(e.getValidation())
-                .build();
+  @ResponseBody
+  @ExceptionHandler(PointDetailNotFoundException.class)
+  public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse(
+      PointDetailNotFoundException e) {
 
+    int statusCode = e.statusCode();
 
-        return ResponseEntity.status(statusCode)
-                .body(body);
-    }
+    AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
+        .code(String.valueOf(statusCode))
+        .message(e.getMessage())
+        .validation(e.getValidation())
+        .build();
 
-    @ResponseBody
-    @ExceptionHandler(PointDetailNotFoundException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (PointDetailNotFoundException e){
+    return ResponseEntity.status(statusCode)
+        .body(body);
+  }
 
-        int statusCode = e.statusCode();
+  @ResponseBody
+  @ExceptionHandler(AccumulatedPointInvalidRequestException.class)
+  public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse(
+      AccumulatedPointInvalidRequestException e) {
 
-        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
-                .code(String.valueOf(statusCode))
-                .message(e.getMessage())
-                .validation(e.getValidation())
-                .build();
+    int statusCode = e.statusCode();
 
+    AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
+        .code(String.valueOf(statusCode))
+        .message(e.getMessage())
+        .validation(e.getValidation())
+        .build();
 
-        return ResponseEntity.status(statusCode)
-                .body(body);
-    }
+    return ResponseEntity.status(statusCode)
+        .body(body);
+  }
 
-    @ResponseBody
-    @ExceptionHandler(AccumulatedPointInvalidRequestException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccumulatedPointInvalidRequestException e){
+  @ResponseBody
+  @ExceptionHandler(AccumulatedPointConfilctException.class)
+  public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse(
+      AccumulatedPointConfilctException e) {
 
-        int statusCode = e.statusCode();
+    int statusCode = e.statusCode();
 
-        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
-                .code(String.valueOf(statusCode))
-                .message(e.getMessage())
-                .validation(e.getValidation())
-                .build();
+    AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
+        .code(String.valueOf(statusCode))
+        .message(e.getMessage())
+        .validation(e.getValidation())
+        .build();
 
-
-        return ResponseEntity.status(statusCode)
-                .body(body);
-    }
-
-    @ResponseBody
-    @ExceptionHandler(AccumulatedPointConfilctException.class)
-    public ResponseEntity<AccumulatedPointErrorResponse> ErrorResponse (AccumulatedPointConfilctException e){
-
-        int statusCode = e.statusCode();
-
-        AccumulatedPointErrorResponse body = AccumulatedPointErrorResponse.builder()
-                .code(String.valueOf(statusCode))
-                .message(e.getMessage())
-                .validation(e.getValidation())
-                .build();
-
-
-        return ResponseEntity.status(statusCode)
-                .body(body);
-    }
+    return ResponseEntity.status(statusCode)
+        .body(body);
+  }
 }

@@ -21,50 +21,52 @@ import static java.lang.Math.abs;
 @RequiredArgsConstructor
 public class PointFacade {
 
-    private final EventPublisher publisher;
+  private final EventPublisher publisher;
 
-    private final PointService pointService;
+  private final PointService pointService;
 
-    private final AccumulatedPointService accumulatedPointService;
+  private final AccumulatedPointService accumulatedPointService;
 
-    @Transactional
-    public PointResponse createEventReserves(PointCreate pointCreate) {
+  @Transactional
+  public PointResponse createEventReserves(PointCreate pointCreate) {
 
-        Point point = pointCreate.toEntity();
-        // 이벤트 저장
-        Point saveResult = pointService.saveEventReserves(point);
-        // 총계 업데이트
-        accumulatedPointService.calcPointAndUpdate(saveResult.getMemberId(), saveResult.getAmount(), saveResult.getStatus());
-        // 이벤트 발행
-        PointDetailCreate pointDetailCreate = new PointDetailCreate(saveResult);
-        pointDetailCreate.updateEventStatus(STANDBY);
-        pointDetailCreate.setBeforeHistoryId(null);
-        publisher.publish(pointDetailCreate);
+    Point point = pointCreate.toEntity();
+    // 이벤트 저장
+    Point saveResult = pointService.saveEventReserves(point);
+    // 총계 업데이트
+    accumulatedPointService.calcPointAndUpdate(saveResult.getMemberId(), saveResult.getAmount(),
+        saveResult.getStatus());
+    // 이벤트 발행
+    PointDetailCreate pointDetailCreate = new PointDetailCreate(saveResult);
+    pointDetailCreate.updateEventStatus(STANDBY);
+    pointDetailCreate.setBeforeHistoryId(null);
+    publisher.publish(pointDetailCreate);
 
-        return PointResponse.builder()
-                .point(saveResult)
-                .build();
-    }
+    return PointResponse.builder()
+        .point(saveResult)
+        .build();
+  }
 
-    @Transactional
-    public PointResponse createCancelEventReserves(PointCancel pointCancel){
+  @Transactional
+  public PointResponse createCancelEventReserves(PointCancel pointCancel) {
 
-        Point point = pointCancel.toEntity();
-        // 이벤트 저장
-        Point saveResult = pointService.saveEventReserves(point);
-        // 이전 정보 조회
-        PointResponse beforeHistory = pointService.getEventReserves(pointCancel.getEventId());
-        // 총계 업데이트
-        accumulatedPointService.calcPointAndUpdate(saveResult.getMemberId(), abs(beforeHistory.getAmount()), saveResult.getStatus());
-        // 이벤트 발행
-        PointDetailCreate pointDetailCreate = new PointDetailCreate(saveResult);
-        pointDetailCreate.setBeforeHistoryId(pointCancel.getEventId());
-        pointDetailCreate.updateEventStatus(STANDBY);
-        publisher.publish(pointDetailCreate);
+    Point point = pointCancel.toEntity();
+    // 이벤트 저장
+    Point saveResult = pointService.saveEventReserves(point);
+    // 이전 정보 조회
+    PointResponse beforeHistory = pointService.getEventReserves(pointCancel.getEventId());
+    // 총계 업데이트
+    accumulatedPointService.calcPointAndUpdate(saveResult.getMemberId(),
+        abs(beforeHistory.getAmount()), saveResult.getStatus());
+    // 이벤트 발행
+    PointDetailCreate pointDetailCreate = new PointDetailCreate(saveResult);
+    pointDetailCreate.setBeforeHistoryId(pointCancel.getEventId());
+    pointDetailCreate.updateEventStatus(STANDBY);
+    publisher.publish(pointDetailCreate);
 
-        return PointResponse.builder()
-                .point(saveResult)
-                .build();
-    }
+    return PointResponse.builder()
+        .point(saveResult)
+        .build();
+  }
 
 }

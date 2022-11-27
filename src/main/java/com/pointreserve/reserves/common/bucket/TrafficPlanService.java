@@ -12,24 +12,25 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class TrafficPlanService {
-    private final Map<String, Bucket> cache = new ConcurrentHashMap<>();
+
+  private final Map<String, Bucket> cache = new ConcurrentHashMap<>();
 
 
-    public Bucket resolveBucket(HttpServletRequest request) {
-        return cache.computeIfAbsent(getRemoteAddress(request), this::newBucket);
-    }
+  public Bucket resolveBucket(HttpServletRequest request) {
+    return cache.computeIfAbsent(getRemoteAddress(request), this::newBucket);
+  }
 
-    public void clearCache(){
-        cache.clear();
-    }
+  public void clearCache() {
+    cache.clear();
+  }
 
-    private Bucket newBucket(String apiKey){
-        return Bucket.builder()
-                .addLimit(Bandwidth.classic(10, Refill.intervally(3, Duration.ofSeconds(30))))
-                .build();
-    }
+  private Bucket newBucket(String apiKey) {
+    return Bucket.builder()
+        .addLimit(Bandwidth.classic(10, Refill.intervally(3, Duration.ofSeconds(30))))
+        .build();
+  }
 
-    private String getRemoteAddress(HttpServletRequest request){
-        return request.getRemoteAddr();
-    }
+  private String getRemoteAddress(HttpServletRequest request) {
+    return request.getRemoteAddr();
+  }
 }

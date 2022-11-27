@@ -15,28 +15,29 @@ import javax.persistence.*;
 @Entity
 @Table(name = "POINT")
 public class Point extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(generator = "event-generator")
-    @GenericGenerator(name = "event-generator",
-            parameters = @Parameter(name = "prefix", value = "e"),
-            strategy = "com.pointreserve.reserves.common.domain.CustomIdGenerator")
-    String id;
 
-    @Column(nullable = false)
-    Long memberId;
+  @Id
+  @GeneratedValue(generator = "event-generator")
+  @GenericGenerator(name = "event-generator",
+      parameters = @Parameter(name = "prefix", value = "e"),
+      strategy = "com.pointreserve.reserves.common.domain.CustomIdGenerator")
+  String id;
 
-    @Column(nullable = false)
-    int amount;
+  @Column(nullable = false)
+  Long memberId;
 
-    @Column(nullable = false)
-    PointStatus status;
+  @Column(nullable = false)
+  int amount;
+
+  @Column(nullable = false)
+  PointStatus status;
 
 
-    @Builder
-    public Point(Long memberId, int amount,
-                 PointStatus status) {
-        this.memberId = memberId;
-        this.amount = amount;
-        this.status = status;
-    }
+  @Builder
+  public Point(Long memberId, int amount,
+      PointStatus status) {
+    this.memberId = memberId;
+    this.amount = amount;
+    this.status = status;
+  }
 }

@@ -9,11 +9,12 @@ import javax.persistence.PersistenceContext;
 
 @Configuration
 public class QueryDslConfig {
-    @PersistenceContext
-    public EntityManager em;
 
-    @Bean
-    public JPAQueryFactory jpaQueryFactory(){
-        return new JPAQueryFactory(em);
-    }
+  @PersistenceContext
+  public EntityManager em;
+
+  @Bean
+  public JPAQueryFactory jpaQueryFactory() {
+    return new JPAQueryFactory(em);
+  }
 }

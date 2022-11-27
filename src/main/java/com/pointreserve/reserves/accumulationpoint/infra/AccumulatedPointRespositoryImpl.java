@@ -13,14 +13,14 @@ import static com.pointreserve.reserves.accumulationpoint.domain.QAccumulatedPoi
 @RequiredArgsConstructor
 public class AccumulatedPointRespositoryImpl implements AccountRepositoryCustom {
 
-    private final JPAQueryFactory jpaQueryFactory;
+  private final JPAQueryFactory jpaQueryFactory;
 
 
-    @Override
-    public Optional<AccumulatedPoint> getByMemberId(Long memberId) {
-        return Optional.of(Objects.requireNonNull(jpaQueryFactory.selectFrom(accumulatedPoint)
-                .where(accumulatedPoint.memberId.eq(memberId))
-                .setLockMode(LockModeType.PESSIMISTIC_WRITE)
-                .fetchOne()));
-    }
+  @Override
+  public Optional<AccumulatedPoint> getByMemberId(Long memberId) {
+    return Optional.of(Objects.requireNonNull(jpaQueryFactory.selectFrom(accumulatedPoint)
+        .where(accumulatedPoint.memberId.eq(memberId))
+        .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+        .fetchOne()));
+  }
 }

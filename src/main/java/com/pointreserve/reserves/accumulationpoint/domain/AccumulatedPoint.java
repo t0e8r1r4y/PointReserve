@@ -13,29 +13,30 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ACCUMULATEDPOINT")
 public class AccumulatedPoint {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false)
-    private Long memberId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-
-    @Column(nullable = false)
-    private int totalAmount;
-
-    @Builder
-    public AccumulatedPoint(Long memberId, int totalAmount) {
-        this.memberId = memberId;
-        this.totalAmount = totalAmount;
-    }
+  @Column(nullable = false)
+  private Long memberId;
 
 
-    public AccumulatedPointEditorBuilder toEditorBuilder(){
-        return AccumulatedPointEditor.builder().totalAmount(totalAmount);
-    }
+  @Column(nullable = false)
+  private int totalAmount;
 
-    public void edit(AccumulatedPointEditor reservesAmountEdit) {
-        this.totalAmount = reservesAmountEdit.getTotalAmount();
-    }
+  @Builder
+  public AccumulatedPoint(Long memberId, int totalAmount) {
+    this.memberId = memberId;
+    this.totalAmount = totalAmount;
+  }
+
+
+  public AccumulatedPointEditorBuilder toEditorBuilder() {
+    return AccumulatedPointEditor.builder().totalAmount(totalAmount);
+  }
+
+  public void edit(AccumulatedPointEditor reservesAmountEdit) {
+    this.totalAmount = reservesAmountEdit.getTotalAmount();
+  }
 }

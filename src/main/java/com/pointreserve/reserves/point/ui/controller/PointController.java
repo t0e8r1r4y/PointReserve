@@ -17,31 +17,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PointController {
 
-    private final PointService pointService;
+  private final PointService pointService;
 
-    private final PointFacade pointFacade;
+  private final PointFacade pointFacade;
 
-    @GetMapping("/reserves/events/get/{eventId}")
-    public PointResponse getEvent(@PathVariable(name = "eventId") String eventId){
-        return pointService.getEventReserves(eventId);
-    }
+  @GetMapping("/reserves/events/get/{eventId}")
+  public PointResponse getEvent(@PathVariable(name = "eventId") String eventId) {
+    return pointService.getEventReserves(eventId);
+  }
 
-    @GetMapping("/reserves/events/getList")
-    public List<PointResponse> getEventList(@ModelAttribute PointSearch params){
-        return pointService.getEventReservesList(params);
-    }
+  @GetMapping("/reserves/events/getList")
+  public List<PointResponse> getEventList(@ModelAttribute PointSearch params) {
+    return pointService.getEventReservesList(params);
+  }
 
-    @PostMapping("/reserves/event/create")
-    public PointResponse createEvent(@RequestBody PointCreate params) {
-        params.isAmountValid();
-        params.isStatusValid();
-        return pointFacade.createEventReserves(params);
-    }
+  @PostMapping("/reserves/event/create")
+  public PointResponse createEvent(@RequestBody PointCreate params) {
+    params.isAmountValid();
+    params.isStatusValid();
+    return pointFacade.createEventReserves(params);
+  }
 
-    @PostMapping("/reserves/event/cancel")
-    public PointResponse createCacelEvent(@RequestBody PointCancel params) {
-        params.isStatusValid();
-        return pointFacade.createCancelEventReserves(params);
-    }
+  @PostMapping("/reserves/event/cancel")
+  public PointResponse createCacelEvent(@RequestBody PointCancel params) {
+    params.isStatusValid();
+    return pointFacade.createCancelEventReserves(params);
+  }
 
 }

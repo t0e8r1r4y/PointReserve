@@ -12,28 +12,27 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class ThreadPoolConfig {
 
-    @Bean
-    public ThreadPoolTaskScheduler taskScheduler()
-    {
-        ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
-        taskScheduler.setPoolSize(Runtime.getRuntime().availableProcessors());
-        taskScheduler.setThreadNamePrefix("Scheduler-Thread");
-        taskScheduler.initialize();
-        return taskScheduler;
-    }
+  @Bean
+  public ThreadPoolTaskScheduler taskScheduler() {
+    ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+    taskScheduler.setPoolSize(Runtime.getRuntime().availableProcessors());
+    taskScheduler.setThreadNamePrefix("Scheduler-Thread");
+    taskScheduler.initialize();
+    return taskScheduler;
+  }
 
-    @Bean
-    public ThreadPoolTaskExecutor threadPoolTaskExecutor()
-    {
-        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setThreadNamePrefix("Async-Thread-");
-        taskExecutor.setCorePoolSize(Runtime.getRuntime().availableProcessors()); // ThreadTaskScheduler와 동일 이유
-        taskExecutor.setMaxPoolSize(100);
-        taskExecutor.setQueueCapacity(1_000);
-        taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-        taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
-        taskExecutor.setAllowCoreThreadTimeOut(true);
-        taskExecutor.initialize();
-        return taskExecutor;
-    }
+  @Bean
+  public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+    ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+    taskExecutor.setThreadNamePrefix("Async-Thread-");
+    taskExecutor.setCorePoolSize(
+        Runtime.getRuntime().availableProcessors()); // ThreadTaskScheduler와 동일 이유
+    taskExecutor.setMaxPoolSize(100);
+    taskExecutor.setQueueCapacity(1_000);
+    taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+    taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
+    taskExecutor.setAllowCoreThreadTimeOut(true);
+    taskExecutor.initialize();
+    return taskExecutor;
+  }
 }

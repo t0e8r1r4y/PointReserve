@@ -11,23 +11,23 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EventDetailCreateListener {
 
-    private final EventDetailCreateQueue eventDetailCreateQueue;
+  private final EventDetailCreateQueue eventDetailCreateQueue;
 
-    @EventListener
-    public void onEvent(PointDetailCreate pointDetailCreate){
+  @EventListener
+  public void onEvent(PointDetailCreate pointDetailCreate) {
 
-        if(!pointDetailCreate.isStandby()) {
-            log.info("EventDetail(id:{}) status is not STANDBY!", pointDetailCreate.getMembershipId());
-            return;
-        }
-
-        while (eventDetailCreateQueue.isFull()) {
-            if(!pointDetailCreate.isQueueWait()){
-                pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.QUEUE_WAIT);
-            }
-        }
-
-        pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.QUEUE);
-        eventDetailCreateQueue.offer(pointDetailCreate);
+    if (!pointDetailCreate.isStandby()) {
+      log.info("EventDetail(id:{}) status is not STANDBY!", pointDetailCreate.getMembershipId());
+      return;
     }
+
+    while (eventDetailCreateQueue.isFull()) {
+      if (!pointDetailCreate.isQueueWait()) {
+        pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.QUEUE_WAIT);
+      }
+    }
+
+    pointDetailCreate.updateEventStatus(PointDetailCreate.EventStatus.QUEUE);
+    eventDetailCreateQueue.offer(pointDetailCreate);
+  }
 }

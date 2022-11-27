@@ -19,31 +19,32 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PointService {
-    private final EventPublisher publisher;
-    private final PointRepository pointRepository;
 
-    @Transactional
-    public Point saveEventReserves(Point event) {
-        return pointRepository.save(event);
+  private final EventPublisher publisher;
+  private final PointRepository pointRepository;
+
+  @Transactional
+  public Point saveEventReserves(Point event) {
+    return pointRepository.save(event);
+  }
+
+
+  @Transactional(readOnly = true)
+  public PointResponse getEventReserves(String eventId) {
+    Point point = pointRepository.findById(eventId).orElseThrow(
+        PointNotFoundException::new
+    );
+    return PointResponse.builder().point(point).build();
+  }
+
+  @Transactional(readOnly = true)
+  public List<PointResponse> getEventReservesList(PointSearch pointSearch) {
+    List<PointResponse> responseList = pointRepository.getList(pointSearch)
+        .stream().map(PointResponse::new)
+        .collect(Collectors.toList());
+    if (responseList.isEmpty()) {
+      throw new PointNotFoundException();
     }
-
-
-    @Transactional(readOnly = true)
-    public PointResponse getEventReserves(String eventId){
-        Point point = pointRepository.findById(eventId).orElseThrow(
-                PointNotFoundException::new
-        );
-        return PointResponse.builder().point(point).build();
-    }
-
-    @Transactional(readOnly = true)
-    public List<PointResponse> getEventReservesList(PointSearch pointSearch){
-        List<PointResponse> responseList = pointRepository.getList(pointSearch)
-                .stream().map(PointResponse::new)
-                .collect(Collectors.toList());
-        if(responseList.isEmpty()){
-            throw new PointNotFoundException();
-        }
-        return responseList;
-    }
+    return responseList;
+  }
 }

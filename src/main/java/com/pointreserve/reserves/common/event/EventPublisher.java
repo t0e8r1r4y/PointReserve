@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class EventPublisher {
-    private final ApplicationEventPublisher publisher;
 
-    public void publish(PointDetailCreate pointDetailCreate) {
-        publisher.publishEvent(pointDetailCreate);
-    }
+  private final ApplicationEventPublisher publisher;
+
+  public void publish(PointDetailCreate pointDetailCreate) {
+    publisher.publishEvent(pointDetailCreate);
+  }
 }

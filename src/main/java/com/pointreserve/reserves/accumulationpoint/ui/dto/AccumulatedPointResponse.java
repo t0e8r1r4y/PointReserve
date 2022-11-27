@@ -6,20 +6,21 @@ import lombok.Getter;
 
 @Getter
 public class AccumulatedPointResponse {
-    private final Long id;
-    private final Long memberId;
-    private final int totalAmount;
 
-    @Builder
-    public AccumulatedPointResponse(AccumulatedPoint accumulatedPoint){
-        this.id = accumulatedPoint.getId();
-        this.memberId = accumulatedPoint.getMemberId();
-        this.totalAmount = accumulatedPoint.getTotalAmount();
-    }
+  private final Long id;
+  private final Long memberId;
+  private final int totalAmount;
 
-    public AccumulatedPointResponse(Long id, Long memberId, int totalAmount){
-        this.id = id;
-        this.memberId = memberId;
-        this.totalAmount = totalAmount;
-    }
+  @Builder
+  public AccumulatedPointResponse(AccumulatedPoint accumulatedPoint) {
+    this.id = accumulatedPoint.getId();
+    this.memberId = accumulatedPoint.getMemberId();
+    this.totalAmount = accumulatedPoint.getTotalAmount();
+  }
+
+  public AccumulatedPointResponse(Long id, Long memberId, int totalAmount) {
+    this.id = id;
+    this.memberId = memberId;
+    this.totalAmount = totalAmount;
+  }
 }

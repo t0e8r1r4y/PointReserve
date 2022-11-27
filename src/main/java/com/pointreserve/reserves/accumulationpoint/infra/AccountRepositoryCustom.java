@@ -5,5 +5,6 @@ import com.pointreserve.reserves.accumulationpoint.domain.AccumulatedPoint;
 import java.util.Optional;
 
 public interface AccountRepositoryCustom {
-    Optional<AccumulatedPoint> getByMemberId(Long memberId);
+
+  Optional<AccumulatedPoint> getByMemberId(Long memberId);
 }
