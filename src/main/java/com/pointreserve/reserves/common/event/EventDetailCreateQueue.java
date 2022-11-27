@@ -27,7 +27,7 @@ public class EventDetailCreateQueue {
     }
 
     public PointDetailCreate poll(){
-        if(queue.size() <= 0) {
+        if(queue.isEmpty()) {
             throw new IllegalArgumentException("이벤트 큐에 이벤트 없음");
         }
 
