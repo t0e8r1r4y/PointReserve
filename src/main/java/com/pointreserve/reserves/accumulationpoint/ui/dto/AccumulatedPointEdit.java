@@ -13,17 +13,17 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class AccumulatedPointEdit {
 
-    @NotNull(message = "금액은 필수 입력사항입니다.")
-    private int totalAmount;
+  @NotNull(message = "금액은 필수 입력사항입니다.")
+  private int totalAmount;
 
-    @Builder
-    public AccumulatedPointEdit(int totalAmount) {
-        this.totalAmount = totalAmount;
-    }
+  @Builder
+  public AccumulatedPointEdit(int totalAmount) {
+    this.totalAmount = totalAmount;
+  }
 
-    public void validate(){
-        if(totalAmount < 0) {
-            throw new AccumulatedPointInvalidRequestException("totalAmount","금액은 0원 미만이 될 수 없습니다.");
-        }
+  public void validate() {
+    if (totalAmount < 0) {
+      throw new AccumulatedPointInvalidRequestException("totalAmount", "금액은 0원 미만이 될 수 없습니다.");
     }
+  }
 }

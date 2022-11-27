@@ -21,61 +21,66 @@ import static com.pointreserve.reserves.point.domain.PointStatus.REDEEM;
 @Service
 @RequiredArgsConstructor
 public class AccumulatedPointService {
-    private final AccumulatedPointPointRepository accumulatedPointPointRepository;
 
-    public AccumulatedPointResponse createAccumulatedPoint(AccumulatedPointCreate accumulatedPointCreate) {
-        if( accumulatedPointPointRepository.getByMemberId(accumulatedPointCreate.getMemberId()).isPresent() ){
-            throw new AccumulatedPointConfilctException();
-        }
-        return AccumulatedPointResponse.builder()
-                .accumulatedPoint( accumulatedPointPointRepository.save( accumulatedPointCreate.toEntity() )  )
-                .build();
+  private final AccumulatedPointPointRepository accumulatedPointPointRepository;
+
+  public AccumulatedPointResponse createAccumulatedPoint(
+      AccumulatedPointCreate accumulatedPointCreate) {
+    if (accumulatedPointPointRepository.getByMemberId(accumulatedPointCreate.getMemberId())
+        .isPresent()) {
+      throw new AccumulatedPointConfilctException();
     }
+    return AccumulatedPointResponse.builder()
+        .accumulatedPoint(accumulatedPointPointRepository.save(accumulatedPointCreate.toEntity()))
+        .build();
+  }
 
-    // 실무라면 soft delete를 적용하겠지만, 여기서는 삭제를 합니다.
-    public AccumulatedPointResponse deleteAccumulatedPoint(Long memberId ) {
-        AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
-                .orElseThrow(AccumulatedPointNotFoundException::new);
-        accumulatedPointPointRepository.delete(accumulatedPoint);
-        return new AccumulatedPointResponse(accumulatedPoint);
-    }
+  // 실무라면 soft delete를 적용하겠지만, 여기서는 삭제를 합니다.
+  public AccumulatedPointResponse deleteAccumulatedPoint(Long memberId) {
+    AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
+        .orElseThrow(AccumulatedPointNotFoundException::new);
+    accumulatedPointPointRepository.delete(accumulatedPoint);
+    return new AccumulatedPointResponse(accumulatedPoint);
+  }
 
-    @Transactional(readOnly = true)
-    public AccumulatedPointResponse getAccumulatedPoint(Long memberId ){
-        AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
-                .orElseThrow(AccumulatedPointNotFoundException::new);
-        return AccumulatedPointResponse.builder().accumulatedPoint(accumulatedPoint).build();
-    }
+  @Transactional(readOnly = true)
+  public AccumulatedPointResponse getAccumulatedPoint(Long memberId) {
+    AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.getByMemberId(memberId)
+        .orElseThrow(AccumulatedPointNotFoundException::new);
+    return AccumulatedPointResponse.builder().accumulatedPoint(accumulatedPoint).build();
+  }
 
-    @Transactional
-    public AccumulatedPointResponse updateAccumulatedPoint(AccumulatedPoint accumulatedPoint){
-        AccumulatedPoint saveResult = accumulatedPointPointRepository.saveAndFlush(accumulatedPoint);
-        return new AccumulatedPointResponse(saveResult);
-    }
-
-
-    @Transactional
-    public AccumulatedPointResponse calcPointAndUpdate(Long memberId, int amount, PointStatus pointStatus){
-        AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.findByMemberId(memberId)
-                .orElseThrow(AccumulatedPointNotFoundException::new);
-
-        AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
-                .totalAmount(calUpdateAmount( pointStatus, amount, accumulatedPoint.getTotalAmount() ))
-                .build();
-
-        accumulatedPointEdit.validate();
-
-        AccumulatedPointEditor.AccumulatedPointEditorBuilder amountEditorBuilder = accumulatedPoint.toEditorBuilder();
-        AccumulatedPointEditor accumulatedPointEditor = amountEditorBuilder.totalAmount(accumulatedPointEdit.getTotalAmount()).build();
-
-        accumulatedPoint.edit(accumulatedPointEditor);
-
-        return updateAccumulatedPoint(accumulatedPoint);
-    }
+  @Transactional
+  public AccumulatedPointResponse updateAccumulatedPoint(AccumulatedPoint accumulatedPoint) {
+    AccumulatedPoint saveResult = accumulatedPointPointRepository.saveAndFlush(accumulatedPoint);
+    return new AccumulatedPointResponse(saveResult);
+  }
 
 
-    private int calUpdateAmount(PointStatus s, int amout, int beforeTotalAmount) {
-        return ( (s != REDEEM) ? amout : amout*(-1) ) + beforeTotalAmount;
-    }
+  @Transactional
+  public AccumulatedPointResponse calcPointAndUpdate(Long memberId, int amount,
+      PointStatus pointStatus) {
+    AccumulatedPoint accumulatedPoint = accumulatedPointPointRepository.findByMemberId(memberId)
+        .orElseThrow(AccumulatedPointNotFoundException::new);
+
+    AccumulatedPointEdit accumulatedPointEdit = AccumulatedPointEdit.builder()
+        .totalAmount(calUpdateAmount(pointStatus, amount, accumulatedPoint.getTotalAmount()))
+        .build();
+
+    accumulatedPointEdit.validate();
+
+    AccumulatedPointEditor.AccumulatedPointEditorBuilder amountEditorBuilder = accumulatedPoint.toEditorBuilder();
+    AccumulatedPointEditor accumulatedPointEditor = amountEditorBuilder.totalAmount(
+        accumulatedPointEdit.getTotalAmount()).build();
+
+    accumulatedPoint.edit(accumulatedPointEditor);
+
+    return updateAccumulatedPoint(accumulatedPoint);
+  }
+
+
+  private int calUpdateAmount(PointStatus s, int amout, int beforeTotalAmount) {
+    return ((s != REDEEM) ? amout : amout * (-1)) + beforeTotalAmount;
+  }
 
 }

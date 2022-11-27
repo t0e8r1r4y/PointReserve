@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.Lock;
 import javax.persistence.LockModeType;
 import java.util.Optional;
 
-public interface AccumulatedPointPointRepository extends JpaRepository<AccumulatedPoint, Long>, AccountRepositoryCustom {
+public interface AccumulatedPointPointRepository extends JpaRepository<AccumulatedPoint, Long>,
+    AccountRepositoryCustom {
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Optional<AccumulatedPoint> findByMemberId(Long memberId);
+  @Lock(LockModeType.PESSIMISTIC_WRITE)
+  Optional<AccumulatedPoint> findByMemberId(Long memberId);
 }

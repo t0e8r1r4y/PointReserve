@@ -20,68 +20,72 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class AccumulatedPointController {
 
-    private final TrafficPlanService trafficPlanService;
+  private final TrafficPlanService trafficPlanService;
 
-    private final AccumulatedPointService accumulatedPointService;
+  private final AccumulatedPointService accumulatedPointService;
 
-    @PostMapping("/reserves/create/{memberId}")
-    public ResponseEntity<AccumulatedPointResponse> createAccount(@PathVariable(name = "memberId") Long memberId, HttpServletRequest request){
+  @PostMapping("/reserves/create/{memberId}")
+  public ResponseEntity<AccumulatedPointResponse> createAccount(
+      @PathVariable(name = "memberId") Long memberId, HttpServletRequest request) {
 
-        Bucket bucket = trafficPlanService.resolveBucket(request);
-        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+    Bucket bucket = trafficPlanService.resolveBucket(request);
+    ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
 
-        if(probe.isConsumed()){
-            AccumulatedPointResponse response = accumulatedPointService.createAccumulatedPoint(AccumulatedPointCreate.builder()
-                                                                        .memberId(memberId).build());
-            return ResponseEntity.status(HttpStatus.CREATED)
-                                 .headers(makeHeaders(bucket,probe))
-                                 .body(response);
-        }
-
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                             .headers(makeHeaders(bucket,probe))
-                             .build();
+    if (probe.isConsumed()) {
+      AccumulatedPointResponse response = accumulatedPointService.createAccumulatedPoint(
+          AccumulatedPointCreate.builder()
+              .memberId(memberId).build());
+      return ResponseEntity.status(HttpStatus.CREATED)
+          .headers(makeHeaders(bucket, probe))
+          .body(response);
     }
 
-    @DeleteMapping("/reserves/delete/{memberId}")
-    public ResponseEntity<AccumulatedPointResponse> deleteAccount(@PathVariable Long memberId, HttpServletRequest request) {
-        Bucket bucket = trafficPlanService.resolveBucket(request);
-        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+        .headers(makeHeaders(bucket, probe))
+        .build();
+  }
 
-        if(probe.isConsumed()) {
-            return ResponseEntity.status(HttpStatus.OK)
-                                 .headers(makeHeaders(bucket,probe))
-                                 .body(accumulatedPointService.deleteAccumulatedPoint(memberId));
-        }
+  @DeleteMapping("/reserves/delete/{memberId}")
+  public ResponseEntity<AccumulatedPointResponse> deleteAccount(@PathVariable Long memberId,
+      HttpServletRequest request) {
+    Bucket bucket = trafficPlanService.resolveBucket(request);
+    ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
 
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                             .headers(makeHeaders(bucket,probe))
-                             .build();
+    if (probe.isConsumed()) {
+      return ResponseEntity.status(HttpStatus.OK)
+          .headers(makeHeaders(bucket, probe))
+          .body(accumulatedPointService.deleteAccumulatedPoint(memberId));
     }
 
-    @GetMapping("/reserves/get/{memberId}")
-    public ResponseEntity<AccumulatedPointResponse> getAccount(@PathVariable Long memberId, HttpServletRequest request) {
-        Bucket bucket = trafficPlanService.resolveBucket(request);
-        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+        .headers(makeHeaders(bucket, probe))
+        .build();
+  }
 
-        if(probe.isConsumed()){
-            return ResponseEntity.status(HttpStatus.OK)
-                                 .headers(makeHeaders(bucket,probe))
-                                 .body( accumulatedPointService.getAccumulatedPoint(memberId) );
-        }
+  @GetMapping("/reserves/get/{memberId}")
+  public ResponseEntity<AccumulatedPointResponse> getAccount(@PathVariable Long memberId,
+      HttpServletRequest request) {
+    Bucket bucket = trafficPlanService.resolveBucket(request);
+    ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
 
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                             .headers(makeHeaders(bucket,probe))
-                             .build();
+    if (probe.isConsumed()) {
+      return ResponseEntity.status(HttpStatus.OK)
+          .headers(makeHeaders(bucket, probe))
+          .body(accumulatedPointService.getAccumulatedPoint(memberId));
     }
 
-    private HttpHeaders makeHeaders(Bucket bucket, ConsumptionProbe probe) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
-        httpHeaders.set("X-RateLimit-Remaining", String.valueOf(probe.getRemainingTokens()));
-        httpHeaders.set("X-RateLimit-Limit", String.valueOf(bucket.getAvailableTokens()));
-        httpHeaders.set("X-Ratelimit-Retry-After", String.valueOf(waitForRefill));
-        return httpHeaders;
-    }
+    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+        .headers(makeHeaders(bucket, probe))
+        .build();
+  }
+
+  private HttpHeaders makeHeaders(Bucket bucket, ConsumptionProbe probe) {
+    HttpHeaders httpHeaders = new HttpHeaders();
+    long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
+    httpHeaders.set("X-RateLimit-Remaining", String.valueOf(probe.getRemainingTokens()));
+    httpHeaders.set("X-RateLimit-Limit", String.valueOf(bucket.getAvailableTokens()));
+    httpHeaders.set("X-Ratelimit-Retry-After", String.valueOf(waitForRefill));
+    return httpHeaders;
+  }
 
 }

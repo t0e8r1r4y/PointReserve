@@ -5,10 +5,11 @@ import lombok.Getter;
 
 @Getter
 public class AccumulatedPointEditor {
-    private final int totalAmount;
 
-    @Builder
-    public AccumulatedPointEditor(int totalAmount) {
-        this.totalAmount = totalAmount;
-    }
+  private final int totalAmount;
+
+  @Builder
+  public AccumulatedPointEditor(int totalAmount) {
+    this.totalAmount = totalAmount;
+  }
 }
