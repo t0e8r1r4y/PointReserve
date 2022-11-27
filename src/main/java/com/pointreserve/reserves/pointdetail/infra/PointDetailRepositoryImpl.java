@@ -38,10 +38,10 @@ public class PointDetailRepositoryImpl implements PointDetailRepositoryCustom {
     }
 
     @Override
-    public List<PointDetail> getListNotInSignUpId(List<String> NotIn, Long memberId) {
+    public List<PointDetail> getListNotInSignUpId(List<String> notIn, Long memberId) {
         return jpaQueryFactory.selectFrom(pointDetail)
                 .where(pointDetail.membershipId.eq(memberId))
-                .where(pointDetail.id.notIn(NotIn))
+                .where(pointDetail.id.notIn(notIn))
                 .where(pointDetail.status.ne(REDEEM))
                 .fetch();
     }
