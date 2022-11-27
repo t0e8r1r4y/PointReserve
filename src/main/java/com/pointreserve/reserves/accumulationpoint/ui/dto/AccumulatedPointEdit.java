@@ -21,7 +21,7 @@ public class AccumulatedPointEdit {
         this.totalAmount = totalAmount;
     }
 
-    public void isValid(){
+    public void validate(){
         if(totalAmount < 0) {
             throw new AccumulatedPointInvalidRequestException("totalAmount","금액은 0원 미만이 될 수 없습니다.");
         }

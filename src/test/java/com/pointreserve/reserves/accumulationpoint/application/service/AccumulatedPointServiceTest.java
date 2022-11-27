@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
@@ -43,7 +42,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("적립금 계정 생성 서비스 테스트")
+    @DisplayName("누적 포인트 계정 생성 테스트")
     void createReservesAccount() {
         Long memberId = 1L;
 
@@ -58,7 +57,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("적립금 계정 삭제 서비스 테스트")
+    @DisplayName("누적 포인트 계정 삭제 테스트")
     void deleteAccountTest() {
         // given
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
@@ -71,8 +70,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("적립금 계정 삭제 실패 서비스 테스트")
-//    @Transactional
+    @DisplayName("누적 포인트 계정 삭제 실패 테스트")
     void deleteAccountFailTest() {
         //then
         Assertions.assertThrows( AccumulatedPointNotFoundException.class, () -> {
@@ -81,7 +79,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("적립금 계정 정보 단건 조회 테스트")
+    @DisplayName("누적 포인트 계정 단건 조회 테스트")
     void getTest() {
         // given
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
@@ -95,7 +93,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("적립금 계정 정보 단건 조회 실패 테스트")
+    @DisplayName("누적 포인트 계정 단건 조회 실패 테스트")
     void getFailTest() {
         // given
         accumulatedPointPointRepository.save(AccumulatedPoint.builder().memberId(1L).totalAmount(1000).build());
@@ -109,7 +107,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("포인트 적립 계산 테스트")
+    @DisplayName("누적 포인트 적립 테스트 - 총 금액 = 기존 금액 + 적립금액")
     void calcPointAndUpdate() {
         // given
         Long givenId = 1L;
@@ -127,7 +125,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("포인트 사용 계산 테스트")
+    @DisplayName("누적 포인트 사용 테스트 - 총 금액 = 기존 금액 + 사용금액")
     void calcPointAndUpdate2() {
         // given
         Long givenId = 1L;
@@ -145,7 +143,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("포인트 적립 계산 테스트 실패 - 조회하는 계정이 없음")
+    @DisplayName("누적 포인트 적립 테스트, 적립 대상 계정이 없어서 실패")
     void calcPointAndUpdateFail() {
         // given
         Long givenId = 1L;
@@ -163,7 +161,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("포인트 적립 계산 테스트 실패 - 유효한 값이 아닌 경우")
+    @DisplayName("누적 포인트 사용 테스트, 포인트 금액이 유효하지 않은 경우 실패")
     void calcPointAndUpdateFail2() {
         // given
         Long givenId = 1L;
@@ -181,7 +179,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("업데이트 테스트")
+    @DisplayName("누적 포인트 업데이트 테스트")
     void updateAccumulatedPoint() {
         // given
         Long givenId = 1L;
@@ -199,7 +197,7 @@ class AccumulatedPointServiceTest {
     }
 
     @Test
-    @DisplayName("포인트 적립 업데이트 동시성 테스트")
+    @DisplayName("누적 포인트 적립 동시성 테스트")
     void updateAccountConcurrency() throws InterruptedException {
         // given
         accumulatedPointPointRepository.saveAndFlush(factory.createAccumulatedPoint(1L, 1000));
@@ -228,7 +226,7 @@ class AccumulatedPointServiceTest {
 
 
     @Test
-    @DisplayName("포인트 사용 업데이트 동시성 테스트")
+    @DisplayName("누적 포인트 사용 동시성 테스트")
     void updateAccountConcurrency2() throws InterruptedException {
         // given
         accumulatedPointPointRepository.saveAndFlush(factory.createAccumulatedPoint(1L, 1000));

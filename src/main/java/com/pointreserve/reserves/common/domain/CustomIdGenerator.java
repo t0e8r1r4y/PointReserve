@@ -24,10 +24,10 @@ public class CustomIdGenerator implements IdentifierGenerator{
                         .getIdentifierPropertyName(),
                 obj.getClass().getSimpleName());
 
-        Stream ids = session.createQuery(query).stream();
+        Stream<String> ids = session.createQuery(query).stream();
 
-        Long max = ids.map(o -> o.toString().replace(prefix + "-", "" ))
-                .mapToLong(num -> Long.parseLong((String) num))
+        Long max = ids.map(o -> o.replace(prefix + "-", "" ))
+                .mapToLong(Long::parseLong)
                 .max()
                 .orElse(0L);
 

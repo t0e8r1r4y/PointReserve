@@ -10,7 +10,7 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "POINT")

@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 public class EventPublisher {
     private final ApplicationEventPublisher publisher;
 
-    public void publish(PointDetailCreate pointDetailCreate)
-    {
+    public void publish(PointDetailCreate pointDetailCreate) {
         publisher.publishEvent(pointDetailCreate);
-
-        return;
     }
 }

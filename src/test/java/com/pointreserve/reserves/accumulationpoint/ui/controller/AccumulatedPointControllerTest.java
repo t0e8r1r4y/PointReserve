@@ -52,7 +52,7 @@ class AccumulatedPointControllerTest {
     }
 
     @Test
-    @DisplayName("포인트를 관리하기 위한 포인트 계정을 생성하는 테스트입니다. (createAccount 메서드 테스트)")
+    @DisplayName("누적 포인트 계정 생성 테스트")
     void createAmountTest() throws Exception {
         // given
         Long memberId = 1L;
@@ -76,7 +76,7 @@ class AccumulatedPointControllerTest {
     }
 
     @Test
-    @DisplayName("포인트를 관리하기 위한 적립금 계정을 생성하는 테스트입니다. 이미 계정이 존재하고 있어 실패합니다. (createAccount 메서드 테스트)")
+    @DisplayName("누적 포인트 계정 생성 테스트 -> 이미 계정이 존재하고 있어 실패")
     void createAmountFailTest() throws Exception {
         // given
         Long memberId = 1L;
@@ -100,7 +100,7 @@ class AccumulatedPointControllerTest {
     }
 
     @Test
-    @DisplayName("포인트를 관리하기 위한 포인트 계정을 삭제하는 테스트입니다. (deleteAccount 메서드 테스트)")
+    @DisplayName("누적 포인트 계정 삭제 테스트")
     void deleteAccountTest() throws Exception {
         //given
         Long memberId = 1L;
@@ -125,7 +125,7 @@ class AccumulatedPointControllerTest {
     }
 
     @Test
-    @DisplayName("포인트를 관리하기 위한 포인트 계정을 삭제하는 테스트이며 실패 케이스 테스트입니다. (deleteAccount 메서드 테스트)")
+    @DisplayName("누적 포인트 계정 삭제 테스트 -> 존재하지 않는 계정으로 실패")
     void deleteAccountFailTest() throws Exception {
         // given 없음
         // expect
@@ -146,7 +146,7 @@ class AccumulatedPointControllerTest {
     }
 
     @Test
-    @DisplayName("회원별 포인트 합계를 조회하는 테스트입니다. (getAccount 메서드 테스트)")
+    @DisplayName("누적 포인트 계정 조회 테스트")
     void getAccountTest() throws Exception {
         //given
         Long memberId = 1L;
@@ -172,7 +172,7 @@ class AccumulatedPointControllerTest {
     }
 
     @Test
-    @DisplayName("회원별 포인트 합계를 조회하는 테스트이며 회원정보가 없어 실패하는 케이스입니다.  (getAccount 메서드 테스트)")
+    @DisplayName("누적 포인트 계정 조회 테스트 -> 계정이 없어서 테스트 실패")
     void getAccountFailTest() throws Exception {
         // expect
         mockMvc.perform(get("/reserves/get/{memberId}",1L)

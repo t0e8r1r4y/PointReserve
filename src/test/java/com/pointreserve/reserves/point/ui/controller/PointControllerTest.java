@@ -88,7 +88,7 @@ class PointControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.memberId").value(String.valueOf(1L)))
                 .andDo(document(
-                    "create_event",
+                        "create_event",
                         requestFields(
                                 attributes(key("Body").value("")),
                                 fieldWithPath("memberId").description("회원번호"),

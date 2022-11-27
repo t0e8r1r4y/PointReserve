@@ -12,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -41,8 +38,8 @@ public class PointDetailService {
 
 
     @Transactional
-    public String saveUpReserves( PointDetailCreate e ) {
-        PointDetail response = pointDetailRepository.save(e.toEntity());
+    public String saveUpReserves( PointDetailCreate detailCreate ) {
+        PointDetail response = pointDetailRepository.save(detailCreate.toEntity());
         PointDetailResponse pointDetailResponse = new PointDetailResponse(response);
         return pointDetailResponse.getId();
     }
@@ -76,8 +73,8 @@ public class PointDetailService {
         return idList;
     }
 
-    private Stack<PointDetail> checkDetailForCancelSaveUp(PointDetail pointDetail) {
-        Stack<PointDetail> checkList = new Stack<>();
+    private Deque<PointDetail> checkDetailForCancelSaveUp(PointDetail pointDetail) {
+        Deque<PointDetail> checkList = new LinkedList<>();
         checkList.push(pointDetail);
 
         while(!checkList.isEmpty()) {
@@ -103,12 +100,12 @@ public class PointDetailService {
     }
 
     @Transactional(readOnly = true)
-    private List<PointDetail> checkRedeemHistory(PointDetail saveUpHistory ){
+    public List<PointDetail> checkRedeemHistory(PointDetail saveUpHistory ){
         return pointDetailRepository.getListWithSignId(saveUpHistory.getId());
     }
 
     @Transactional(readOnly = true)
-    private List<PointDetail> chcckCancelHistory(PointDetail redeemHistory ){
+    public List<PointDetail> chcckCancelHistory(PointDetail redeemHistory ){
         return pointDetailRepository.getListWithCancelId(redeemHistory.getId());
     }
 
